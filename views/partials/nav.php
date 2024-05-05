@@ -3,8 +3,8 @@ require 'head.php';
 ?>
 
 
-<aside
-    class="sm:flex sm:flex-col w-56 md:transition-transform md:duration-300 transform h-screen px-5 py-8 overflow-y-auto bg-gray-900 shadow-lg max-w-max 2xl:min-w-72">
+<aside x-cloak
+    class="sm:flex sm:flex-col min-w-56 md:transition-transform md:duration-300 transform h-screen px-5 py-8 overflow-y-auto bg-gray-950 shadow-lg 2xl:min-w-72 hidden">
 
     <a href="/">
         <img class="w-auto h-7 2xl:h-9" src="https://merakiui.com/images/logo.svg" alt="">

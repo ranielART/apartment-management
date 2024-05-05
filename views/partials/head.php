@@ -8,4 +8,4 @@
     <title>Apartment Suite</title>
 </head>
 
-<body class="flex bg-gray-800">
+<body class="flex bg-gray-900 ">
