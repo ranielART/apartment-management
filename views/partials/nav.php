@@ -73,13 +73,12 @@ require 'head.php';
         </nav>
 
         <div class="flex items-center justify-between mt-6">
-            <a href="#" class="flex items-center gap-x-2">
+            <a href="/" class="flex items-center gap-x-2">
                 <img class="object-cover rounded-full h-7 w-7 2xl:h-8 2xl:w-8"
                     src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&h=634&q=80"
                     alt="avatar" />
                 <span class="text-sm font-medium text-gray-500 2xl:text-lg">Admin</span>
             </a>
-
 
         </div>
     </div>
