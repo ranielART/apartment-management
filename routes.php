@@ -6,5 +6,6 @@ return [
     '/paymentHistory' => 'controllers/payment_history.php',
     '/pendingPayments' => 'controllers/pending_payments.php',
     '/floors' => 'controllers/floors.php',
+    '/floor' => 'controllers/floor.php',
     '/tenants' => 'controllers/tenants.php'
 ];

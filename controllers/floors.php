@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (Validator::string($_POST['floorNumber'], 50)) {
 
             $errors['body'] = 'Required!';
-            $remain = 'true';
+
         }
 
 

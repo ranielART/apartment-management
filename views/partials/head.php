@@ -27,8 +27,8 @@
     }
 
     
-    scrollbar-width: thin;
-    scrollbar-color: #030712 #f1f1f1; 
+        /* scrollbar-width: thin;
+        scrollbar-color: #030712 #f1f1f1;  */
     </style>
 
 </head>
