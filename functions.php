@@ -12,7 +12,16 @@ function dd($value)
 
 function isCurrent($page)
 {
+    return $_SERVER['REQUEST_URI'] === $page ? 'bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium transiton-color duration-200' : 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium transiton-color duration-200';
 
-    return $_SERVER['REQUEST_URI'] === $page ? 'transition-colors duration-300 transform rounded-lg bg-gray-800 text-white' : 'text-gray-500 transition-colors duration-300 transform rounded-lg hover:bg-gray-800 hover:text-white';
+}
+
+function isEmpty($input)
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        return empty(trim($_POST[$input])) ? 'border-red-500 border-2 ' : 'border-gray-500';
+
+    }
 
 }

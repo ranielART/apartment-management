@@ -3,7 +3,7 @@ require 'head.php';
 ?>
 
 
-<aside x-cloak
+<aside
     class="sm:flex sm:flex-col min-w-56 md:transition-transform md:duration-300 transform h-screen px-5 py-8 overflow-y-auto bg-gray-950 shadow-lg 2xl:min-w-72 hidden">
 
     <a href="/">
@@ -31,6 +31,18 @@ require 'head.php';
                 </svg>
 
                 <span class="mx-2 text-sm 2xl:text-lg font-medium">Dashboard</span>
+            </a>
+
+            <a class="flex items-center px-3 py-2 <?= isCurrent("/floors"); ?>" href="/floors">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                    class="w-5 h-5 2xl:w-6 2xl:h-6">
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path
+                        d="M21 20H23V22H1V20H3V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V20ZM19 20V4H5V20H19ZM8 11H11V13H8V11ZM8 7H11V9H8V7ZM8 15H11V17H8V15ZM13 15H16V17H13V15ZM13 11H16V13H13V11ZM13 7H16V9H13V7Z">
+                    </path>
+                </svg>
+
+                <span class="mx-2 text-sm 2xl:text-lg font-medium">Floors</span>
             </a>
 
             <a class="flex items-center px-3 py-2 <?= isCurrent("/tenants"); ?>" href="/tenants">

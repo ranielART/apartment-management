@@ -3,7 +3,7 @@
 return [
     "database" => [
         "host" => "localhost",
-        "dbname" => "",
+        "dbname" => "apartment",
         "charset" => "utf8mb4"
     ]
 ];
