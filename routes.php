@@ -7,5 +7,6 @@ return [
     '/pendingPayments' => 'controllers/pending_payments.php',
     '/floors' => 'controllers/floors.php',
     '/floor' => 'controllers/floor.php',
+    '/unit' => 'controllers/unit.php',
     '/tenants' => 'controllers/tenants.php'
 ];
