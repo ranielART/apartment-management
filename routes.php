@@ -8,5 +8,6 @@ return [
     '/floors' => 'controllers/floors.php',
     '/floor' => 'controllers/floor.php',
     '/unit' => 'controllers/unit.php',
+    '/unit/add' => 'controllers/unit-add.php',
     '/tenants' => 'controllers/tenants.php'
 ];

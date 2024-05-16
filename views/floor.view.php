@@ -12,17 +12,20 @@
         class="mx-auto p-12 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center"
         style="max-height: calc(100vh - 110px);">
 
+
+
+
         <div class="flex items-center justify-center mb-5">
             <div class="relative flex items-center">
                 <span class="absolute">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5 mx-3 text-gray-400 dark:text-gray-600">
+                        stroke="currentColor" class="w-5 h-5 mx-3 text-gray-400">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </span>
                 <input type="text" placeholder="Search"
-                    class="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
+                    class="block w-full py-1.5 pr-5 text-gray-300 bg-gray-700 border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
             </div>
         </div>
 
@@ -36,7 +39,7 @@
 
                 </div>
 
-                <button
+                <a href="/unit/add?floor_id=<?= $floor['floor_id'] ?>"
                     class="min-w-10 flex items-center font-medium justify-center  px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-600 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-sky-500 ">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                         class="rtl:rotate-180 w-5 h-5 ">
@@ -47,9 +50,41 @@
                     </svg>
 
                     <span>Add Unit</span>
-                </button>
+                </a>
+
 
             </div>
+
+
+            <!-- Feedback Modal -->
+            <!-- <div class="relative flex justify-center">
+
+        <div x-show="isOpen" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
+
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+
+                    <label class="text-md text-green-400 mb-5" for="floorNumber">Floor U0013 is added
+                        Successfully!</label>
+
+                    <div>
+                        <a @click="isOpen = false" href="/floors"
+                            class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div> -->
 
 
             <div class="flex flex-col mt-6 overflow-hidden">
@@ -59,34 +94,33 @@
 
                     <div class="inline-block min-w-full py-2 align-middle px-6 lg:px-8">
 
-                        <div class="overflow-hidden border border-gray-700 overflow-x-scroll rounded-lg max-h-screen">
+                        <div class="overflow-hidden shadow-lg rounded-lg">
 
-                            <table
-                                class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 lg:overflow-y-scroll">
-                                <thead class="bg-gray-50 dark:bg-gray-800">
+                            <table class="min-w-full divide-y divide-gray-700 ">
+                                <thead class="bg-gray-800">
                                     <tr>
                                         <th scope="col"
-                                            class="min-w-40 py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
+                                            class="min-w-40 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
                                             Unit Number
                                         </th>
 
                                         <th scope="col"
-                                            class="min-w-40 py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
+                                            class="min-w-40 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
                                             Unit Type
                                         </th>
 
                                         <th scope="col"
-                                            class="min-w-40 py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
+                                            class="min-w-40 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
                                             Availability
                                         </th>
 
                                         <th scope="col"
-                                            class="min-w-28 py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
+                                            class="min-w-28 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
                                             Edit</th>
 
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+                                <tbody class="divide-y divide-gray-800 bg-gray-900 overflow-y-scroll">
 
                                     <?php foreach ($units as $unit): ?>
                                     <tr>
@@ -100,10 +134,11 @@
                                         </td>
                                         <td
                                             class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
-                                            <?= $isAvailable = ($unit['availability'] === 1) ? 'Yes' : 'No' ?>
+                                            <?= $isAvailable = ($unit['availability'] === 1) ? 'Occupied' : 'Not Occupied' ?>
                                         </td>
                                         <td
                                             class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
+
                                             <a href="/unit?unit_id=<?= $unit['unit_id'] ?>"
                                                 class="inline-flex items-center gap-x-2 px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 hover:bg-sky-500 rounded-lg transition-colors duration-300 transform">
 

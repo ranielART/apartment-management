@@ -13,12 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['addFloor'])) {
         $errors = [];
-
+        $feedbackModal = true;
 
         if (Validator::string($_POST['floorNumber'], 50)) {
 
             $errors['body'] = 'Required!';
-
+            $feedbackModal = false;
         }
 
 
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db->query('INSERT INTO floors(floor_number) VALUES(:floor_numer)', [
                 'floor_numer' => $_POST['floorNumber']
             ]);
-
+            $feedbackModal = true;
             header('Location: /floors');
         }
     }

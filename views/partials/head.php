@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <title>Apartment Suite</title>
 
@@ -26,7 +26,6 @@
         background: #030712; 
     }
 
-    
         /* scrollbar-width: thin;
         scrollbar-color: #030712 #f1f1f1;  */
     </style>
