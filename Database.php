@@ -24,6 +24,11 @@ class Database
         return $this;
     }
 
+    public function getRowCount()
+    {
+        return $this->statement->rowCount();
+    }
+
     public function find()
     {
         return $this->statement->fetch();

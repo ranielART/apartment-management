@@ -36,6 +36,44 @@
     </div>
     <?php endif; ?>
 
+    <?php if (isset($_GET['not_delete_floor_msg'])): ?>
+    <div x-show="isFeedbackOpen = <?= $_GET['not_delete_floor_msg'] ?? $_GET['delete_floor_msg'] ?>" x-cloak
+        x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
+        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+        class="fixed inset-0 z-10 overflow-y-auto">
+
+        <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+            <div class="fixed inset-0">
+                <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div
+                class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+
+
+                <label class="text-md text-yellow-600 mb-5" for="floorNumber">You can only delete floors with no units.
+                    Empty floor <?= $floor['floor_number'] ?> units first!</label>
+
+
+
+
+                <div>
+                    <?php if (isset($_GET['not_delete_floor_msg'])): ?>
+                    <a @click="isFeedbackOpen = false" href="/floor?floor_id=<?= $floor['floor_id'] ?>"
+                        class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+                    <?php endif; ?>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
+
     <section
         class="mx-auto p-12 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center"
         style="max-height: calc(100vh - 110px);">
@@ -60,15 +98,10 @@
                 <div class="flex flex-row-reverse gap-x-2">
 
                     <button type="submit" name="saveFloorNum"
-                        class="text-gray-400 hover:bg-sky-500 text-white transition-colors duration-200 bg-blue-600 rounded-lg py-2 px-6"
-                        href="#">Save</button>
+                        class="text-gray-400 hover:bg-sky-500 font-medium text-white transition-colors duration-200 bg-blue-600 rounded-lg py-2 px-6">Save</button>
                     <button type="submit" name="deleteFloor"
-                        class="text-gray-400 hover:bg-sky-500 text-white transition-colors duration-200 bg-red-700 rounded-lg py-2 px-5"
-                        href="#">Delete</button>
+                        class="text-gray-400 hover:bg-red-500 font-medium text-white transition-colors duration-200 bg-red-700 rounded-lg py-2 px-5">Delete</button>
                 </div>
-
-
-
 
             </div>
 

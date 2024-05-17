@@ -7,7 +7,8 @@ $config = require ('config.php');
 $db = new Database($config['database']);
 
 $floors = $db->query('select * from floors')->get();
-
+// $floorsRowCount = $db->query('select * from floors')->getRowCount();
+   
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

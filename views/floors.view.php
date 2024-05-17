@@ -31,32 +31,61 @@
         </div>
     </header>
 
-    <?php if (isset($_GET['add_floor_msg'])): ?>
-    <div x-show="isFeedbackOpen = <?= $_GET['add_floor_msg'] ?>" x-cloak
-        x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
-        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
-        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-        class="fixed inset-0 z-10 overflow-y-auto">
+    <?php if (isset($_GET['delete_floor_msg'])): ?>
+        <div x-show="isFeedbackOpen = <?= $_GET['delete_floor_msg'] ?>" x-cloak
+            x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
 
-        <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-            <div class="fixed inset-0">
-                <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-            </div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div
-                class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-
-                <label class="text-md text-green-400 mb-5" for="floorNumber">Floor <?=$_GET['floor_number']?> is added
-                    Successfully!</label>
-
-                <div>
-                    <a @click="isFeedbackOpen = false" href="/floors"
-                        class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
                 </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
 
+                    <label class="text-md text-red-700 mb-5" for="floorNumber">Floor Successfully deleted.</label>
+
+                    <div>
+                        <a @click="isFeedbackOpen = false" href="/floors" class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border
+                        rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+
+
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['add_floor_msg'])): ?>
+        <div x-show="isFeedbackOpen = <?= $_GET['add_floor_msg'] ?>" x-cloak
+            x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
+
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+
+                    <label class="text-md text-green-400 mb-5" for="floorNumber">Floor <?= $_GET['floor_number'] ?> is added
+                        Successfully!</label>
+
+                    <div>
+                        <a @click="isFeedbackOpen = false" href="/floors"
+                            class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     <?php endif; ?>
 
     <!-- Feedback Modal -->
@@ -120,7 +149,7 @@
 
                                 <?php if (isset($errors['body'])): ?>
 
-                                <p class="text-red-500 text-xs mt-1"><?= $errors['body'] ?></p>
+                                    <p class="text-red-500 text-xs mt-1"><?= $errors['body'] ?></p>
 
                                 <?php endif; ?>
 
@@ -157,38 +186,38 @@
         style="max-height: calc(100vh - 110px);">
 
         <?php foreach ($floors as $floor): ?>
-        <div
-            class="min-w-64 md:min-w-56 lg:max-w-md border 2xl:min-w-64 rounded-lg bg-gray-950 border-gray-700 shadow-lg ">
+            <div
+                class="min-w-64 md:min-w-56 lg:max-w-md border 2xl:min-w-64 rounded-lg bg-gray-950 border-gray-700 shadow-lg ">
 
-            <div class="p-5">
+                <div class="p-5">
 
-                <h5 class="mb-2 text-4xl font-bold tracking-tight text-gray-200 tracking-wider">
-                    <?= $floor['floor_number'] ?>
-                </h5>
+                    <h5 class="mb-2 text-4xl font-bold tracking-tight text-gray-200 tracking-wider">
+                        <?= $floor['floor_number'] ?>
+                    </h5>
 
-                <ul>
-                    <li class="mb-2 font-normal text-gray-500 ">Total Units:
-                        <?= $floor['total_units'] ?? '0' ?>
-                    </li>
-                    <li class="mb-5 font-normal text-gray-500 ">Units Occupied:
-                        <?= $floor['units_occupied'] ?? '0' ?>
-                    </li>
-                </ul>
+                    <ul>
+                        <li class="mb-2 font-normal text-gray-500 ">Total Units:
+                            <?= $floor['total_units'] ?? '0' ?>
+                        </li>
+                        <li class="mb-5 font-normal text-gray-500 ">Units Occupied:
+                            <?= $floor['units_occupied'] ?? '0' ?>
+                        </li>
+                    </ul>
 
-                <div>
-                    <a href="/floor?floor_id=<?= $floor['floor_id'] ?>"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center rounded-md bg-blue-700 text-gray-200 hover:bg-sky-500 transition-colors duration-300 transform">
-                        View Floor
-                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 5h12m0 0L9 1m4 4L9 9" />
-                        </svg>
-                    </a>
+                    <div>
+                        <a href="/floor?floor_id=<?= $floor['floor_id'] ?>"
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center rounded-md bg-blue-700 text-gray-200 hover:bg-sky-500 transition-colors duration-300 transform">
+                            View Floor
+                            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
+                            </svg>
+                        </a>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
         <?php endforeach; ?>
 
 
