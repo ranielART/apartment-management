@@ -7,7 +7,7 @@ $config = require ('config.php');
 $db = new Database($config['database']);
 
 
-$floor = $db->query('select floor_id from floors where floor_id = :floor_id', [
+$floor = $db->query('select floor_id, total_units from floors where floor_id = :floor_id', [
     'floor_id' => $_GET['floor_id']
 ])->find();
 
@@ -30,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
 
-
         if (empty($errors)) {
             $db->query('INSERT INTO units(unit_number, floor_id, type_id) VALUES(:unit_number, :floor_id, :type_id)', [
                 'unit_number' => $_POST['unitNumber'],
@@ -38,6 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'type_id' => $_POST['unitType'],
             ]);
 
+            $unitsRowCount = $db->query('SELECT * from units where floor_id = :floor_id', [
+                'floor_id' => $_GET['floor_id']
+            ])->getRowCount();
+
+            $db->query('UPDATE `floors` SET `total_units`= :total_units WHERE `floor_id`= :floor_id;', [
+                'total_units' => $unitsRowCount,
+                'floor_id' => $_GET['floor_id']
+            ]);
 
             $toFloor = $_GET["floor_id"];
             header("Location: /floor?floor_id={$toFloor}");

@@ -16,7 +16,7 @@ $units = $db->query('select units.unit_id, units.unit_number, unit_types.unit_ty
     'floor_id' => $_GET['floor_id']
 ])->get();
 
-$unitsRowCountToDelete = $db->query('select units.unit_id, units.unit_number, unit_types.unit_type, units.availability from units LEFT JOIN unit_types on units.type_id = unit_types.type_id where units.floor_id = :floor_id', [
+$unitsRowCount = $db->query('select units.unit_id, units.unit_number, unit_types.unit_type, units.availability from units LEFT JOIN unit_types on units.type_id = unit_types.type_id where units.floor_id = :floor_id', [
     'floor_id' => $_GET['floor_id']
 ])->getRowCount();
 
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['deleteFloor'])) {
 
-        if ($unitsRowCountToDelete > 0) {
+        if ($unitsRowCount > 0) {
             $preventRowDeleteMessage = "You can only delete floors with no units. Empty your units first!";
             $toFloor = $_GET["floor_id"];
             header("Location: /floor?floor_id={$toFloor}&not_delete_floor_msg=true");

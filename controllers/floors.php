@@ -7,14 +7,12 @@ $config = require ('config.php');
 $db = new Database($config['database']);
 
 $floors = $db->query('select * from floors')->get();
-// $floorsRowCount = $db->query('select * from floors')->getRowCount();
-   
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['addFloor'])) {
         $errors = [];
-
 
         if (Validator::string($_POST['floorNumber'], 50)) {
 
@@ -22,9 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
 
-
         if (empty($errors)) {
-            $db->query('INSERT INTO floors(floor_number) VALUES(:floor_numer)', [
+            $db->query('INSERT INTO floors(floor_number, total_units, units_occupied) VALUES(:floor_numer, 0, 0)', [
                 'floor_numer' => $_POST['floorNumber']
             ]);
 
@@ -33,8 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-
 }
-
 
 require 'views/floors.view.php';

@@ -10,6 +10,4 @@ class Validator
         return empty($value) && strlen($value) <= $max;
     }
 
-
-
 }
