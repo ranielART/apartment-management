@@ -3,7 +3,7 @@
 
 <?php require "partials/nav.php" ?>
 
-<main class="w-full flex flex-col" x-data="{ isOpen: false }">
+<main class="w-full flex flex-col" x-data="{ isOpen: false, isFeedbackOpen: false }">
 
     <header class="bg-gray-950 shadow-lg shadow mx-10 mt-8 rounded-md">
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between">
@@ -31,7 +31,33 @@
         </div>
     </header>
 
+    <?php if (isset($_GET['add_floor_msg'])): ?>
+    <div x-show="isFeedbackOpen = <?= $_GET['add_floor_msg'] ?>" x-cloak
+        x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
+        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+        class="fixed inset-0 z-10 overflow-y-auto">
 
+        <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+            <div class="fixed inset-0">
+                <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div
+                class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+
+                <label class="text-md text-green-400 mb-5" for="floorNumber">Floor <?=$_GET['floor_number']?> is added
+                    Successfully!</label>
+
+                <div>
+                    <a @click="isFeedbackOpen = false" href="/floors"
+                        class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 
     <!-- Feedback Modal -->
     <!-- <div class="relative flex justify-center">

@@ -16,5 +16,33 @@ $units = $db->query('select units.unit_id, units.unit_number, unit_types.unit_ty
     'floor_id' => $_GET['floor_id']
 ])->get();
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['saveFloorNum'])) {
+        $errors = [];
+
+
+        if (Validator::string($_POST['floorNum'], 50)) {
+
+            $errors['body'] = 'Required!';
+
+        }
+
+
+        if (empty($errors)) {
+            $db->query('UPDATE floors SET floor_number = :floorNum where floor_id = :floor_id', [
+                'floorNum' => $_POST['floorNum'],
+                'floor_id' => $_GET['floor_id']
+            ]);
+
+            $toFloor = $_GET["floor_id"];
+            header("Location: /floor?floor_id={$toFloor}&edit_floor_msg=true");
+
+        }
+    }
+
+
+}
+
 
 require 'views/floor.view.php';

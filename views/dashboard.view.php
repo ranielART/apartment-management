@@ -8,7 +8,7 @@
     <?php require "partials/banner.php" ?>
 
     <section
-        class="grid mx-auto md-10 mb-auto p-12 grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center">
+        class="grid mx-auto md-10 mb-auto  p-12 grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center">
 
         <div
             class="min-w-64 md:min-w-56 lg:max-w-md border 2xl:min-w-64 rounded-lg bg-gray-950 border-gray-700 shadow-lg ">

@@ -5,7 +5,7 @@
 
     <div class="flex min-h-full flex-col justify-center bg-gray-950 rounded-md px-6 py-12 lg:px-8 mt-10 mb-10">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-7 w-auto" src="https://merakiui.com/images/logo.svg" alt="">
+            <img class="mx-auto h-7 w-auto" src="https://merakiui.co~~m/images/logo.svg" alt="">
 
             <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-300">Apartment Admin
                 Suite

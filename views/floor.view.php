@@ -3,15 +3,76 @@
 
 <?php require "partials/nav.php" ?>
 
-<main class="w-full flex flex-col overflow-hidden" x-data="{ isOpen: false }">
+<main class="w-full flex flex-col overflow-hidden" x-data="{ isFeedbackOpen: false }">
 
     <?php require "partials/floor-banner.php" ?>
 
+    <?php if (isset($_GET['edit_floor_msg'])): ?>
+    <div x-show="isFeedbackOpen = <?= $_GET['edit_floor_msg'] ?>" x-cloak
+        x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
+        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+        class="fixed inset-0 z-10 overflow-y-auto">
+
+        <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+            <div class="fixed inset-0">
+                <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div
+                class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+
+                <label class="text-md text-green-400 mb-5" for="floorNumber">Floor <?= $floor['floor_number'] ?> is
+                    updated
+                    Successfully!</label>
+
+                <div>
+                    <a @click="isFeedbackOpen = false" href="/floor?floor_id=<?= $floor['floor_id'] ?>"
+                        class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 
     <section
         class="mx-auto p-12 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center"
         style="max-height: calc(100vh - 110px);">
 
+        <form method="POST">
+
+            <div class="flex justify-center flex-col bg-gray-950 rounded-md px-10 py-8 gap-y-3 mb-5">
+
+
+                <div class="flex items-center">
+                    <label for="floorNum" class="text-gray-400 min-w-fit">Floor Number:</label>
+                    <input id="floorNum" name="floorNum" type="text"
+                        class="bg-gray-950 text-gray-400 focus:ring-0 border-x-0 border-t-0 min-w-10 <?= isEmpty('floorNum') ?>"
+                        value="<?= $floor['floor_number'] ?>">
+
+                </div>
+
+                <label class="text-gray-400">Total Units: </label>
+                <label class="text-gray-400">Occupied Units: </label>
+                <hr class="border-gray-700 my-2">
+
+                <div class="flex flex-row-reverse gap-x-2">
+
+                    <button type="submit" name="saveFloorNum"
+                        class="text-gray-400 hover:bg-sky-500 text-white transition-colors duration-200 bg-blue-600 rounded-lg py-2 px-6"
+                        href="#">Save</button>
+                    <button type="submit" name="deleteFloor"
+                        class="text-gray-400 hover:bg-sky-500 text-white transition-colors duration-200 bg-red-700 rounded-lg py-2 px-5"
+                        href="#">Delete</button>
+                </div>
+
+
+
+
+            </div>
+
+        </form>
 
 
 
@@ -54,37 +115,6 @@
 
 
             </div>
-
-
-            <!-- Feedback Modal -->
-            <!-- <div class="relative flex justify-center">
-
-        <div x-show="isOpen" x-cloak x-transition:enter="transition ease-out duration-300 transform"
-            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-200 transform"
-            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-            class="fixed inset-0 z-10 overflow-y-auto">
-
-            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-                <div class="fixed inset-0">
-                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-                </div>
-                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                <div
-                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-
-                    <label class="text-md text-green-400 mb-5" for="floorNumber">Floor U0013 is added
-                        Successfully!</label>
-
-                    <div>
-                        <a @click="isOpen = false" href="/floors"
-                            class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div> -->
 
 
             <div class="flex flex-col mt-6 overflow-hidden">
