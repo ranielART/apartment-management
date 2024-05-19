@@ -6,7 +6,6 @@ $heading = 'Add Unit';
 $config = require ('config.php');
 $db = new Database($config['database']);
 
-
 $floor = $db->query('select floor_id, total_units from floors where floor_id = :floor_id', [
     'floor_id' => $_GET['floor_id']
 ])->find();
@@ -26,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (Validator::string($_POST['unitType'], 100)) {
 
-            $errors['body'] = 'Required!';
+            $errors['unitType'] = 'Required!';
 
         }
 
@@ -37,12 +36,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'type_id' => $_POST['unitType'],
             ]);
 
-            $unitsRowCount = $db->query('SELECT * from units where floor_id = :floor_id', [
+            $unitsRowCount = $db->query('SELECT * FROM units WHERE floor_id = :floor_id AND isActive = 1', [
                 'floor_id' => $_GET['floor_id']
             ])->getRowCount();
 
-            $db->query('UPDATE `floors` SET `total_units`= :total_units WHERE `floor_id`= :floor_id;', [
+            $unitsOccupiedCount = $db->query('SELECT * FROM units WHERE floor_id = :floor_id AND `availability` = 1 ', [
+                'floor_id' => $_GET['floor_id']
+            ])->getRowCount();
+
+
+            $db->query('UPDATE `floors` SET `total_units`= :total_units, `units_occupied` = :units_occupied WHERE `floor_id`= :floor_id AND isActive = 1', [
                 'total_units' => $unitsRowCount,
+                'units_occupied' => $unitsOccupiedCount,
                 'floor_id' => $_GET['floor_id']
             ]);
 

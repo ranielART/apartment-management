@@ -6,7 +6,9 @@ $heading = 'Floors';
 $config = require ('config.php');
 $db = new Database($config['database']);
 
-$floors = $db->query('select * from floors')->get();
+$floors = $db->query('SELECT * FROM floors WHERE isActive = 1')->get();
+$floorsRowCount = $db->query('SELECT * FROM floors where isActive = 1')->getRowCount();
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -24,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db->query('INSERT INTO floors(floor_number, total_units, units_occupied) VALUES(:floor_numer, 0, 0)', [
                 'floor_numer' => $_POST['floorNumber']
             ]);
+
 
             header("Location: /floors?add_floor_msg=true&floor_number={$_POST['floorNumber']}");
             exit();
