@@ -21,7 +21,7 @@
                 <hr class="border-blue-700">
                 <ul>
                     <li class="my-3 font-normal text-gray-500 ">
-                        Total: 14
+                        Total: <?= $numOfFloors ?>
                     </li>
 
                 </ul>
@@ -41,7 +41,7 @@
                 <hr class="border-blue-700">
                 <ul>
                     <li class="my-3 font-normal text-gray-500 ">
-                        Total: 10
+                        Total: <?= $numOfUnits ?>
                     </li>
 
                 </ul>
@@ -61,7 +61,7 @@
                 <hr class="border-blue-700">
                 <ul>
                     <li class="my-3 font-normal text-gray-500 ">
-                        Total: 0
+                        Total: <?= $numOfTenants ?>
                     </li>
 
                 </ul>
@@ -80,7 +80,7 @@
                 <hr class="border-blue-700">
                 <ul>
                     <li class="my-3 font-normal text-gray-500 ">
-                        Total: 4
+                        Total: <?= $numOfTypes ?>
                     </li>
 
                 </ul>
