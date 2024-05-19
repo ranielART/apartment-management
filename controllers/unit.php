@@ -21,11 +21,13 @@ $tenantsInUnit = $db->query('SELECT tenants.*, units.unit_number from tenants LE
 ])->get();
 
 //Number of tenants in a unit row count
-$numOfTenantsInUnit = $db->query('SELECT tenants.*, units.unit_number from tenants LEFT JOIN units on tenants.unit_id = units.unit_id WHERE tenants.unit_id = :unit_id', [
+$numOfTenantsInUnit = $db->query('SELECT tenants.*, units.unit_number from tenants LEFT JOIN units on tenants.unit_id = units.unit_id WHERE tenants.unit_id = :unit_id AND tenants.isActive = 1', [
 
     'unit_id' => $_GET['unit_id']
 
 ])->getRowCount();
+
+
 
 $heading = 'Unit: ' . $unit['unit_number'];
 
@@ -50,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
 
             $toUnit = $_GET["unit_id"];
-            header("Location: /unit?unit_id={$toUnit}&edit_unit_msg=true");
+            header("Location: /unit?floor_id={$_GET['floor_id']}&unit_id={$toUnit}&edit_unit_msg=true");
             exit();
         }
     }
@@ -84,6 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'units_occupied' => $numOfOccupiedUnits,
                 'floor_id' => $_GET['floor_id']
             ]);
+
+            $numOfTenantsInUnit = $db->query('SELECT tenants.*, units.unit_number from tenants LEFT JOIN units on tenants.unit_id = units.unit_id WHERE tenants.unit_id = :unit_id', [
+
+                'unit_id' => $_GET['unit_id']
+
+            ])->getRowCount();
 
 
 

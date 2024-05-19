@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
 
             $toUnit = $_GET["unit_id"];
-            header("Location: /unit?unit_id={$toUnit}&add_tenant_msg=true");
+            header("Location: /unit?floor_id={$_GET['floor_id']}&unit_id={$toUnit}&add_tenant_msg=true");
             exit();
 
         }

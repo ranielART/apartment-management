@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
 
             $toFloor = $_GET["floor_id"];
-            header("Location: /floor?floor_id={$toFloor}");
+            header("Location: /floor?floor_id={$toFloor}&unit_add_msg=true");
 
 
         }

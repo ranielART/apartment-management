@@ -12,6 +12,39 @@
         class="mx-auto p-12 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center"
         style="max-height: calc(100vh - 110px);">
 
+        <!-- Delete Tenant Feedback Modal -->
+        <?php if (isset($_GET['delete_tenant_msg'])): ?>
+        <div x-show="isFeedbackOpen = <?= $_GET['delete_tenant_msg'] ?>" x-cloak
+            x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
+
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+
+
+                    <label class="text-md text-red-600 mb-5" for="floorNumber">Tenant deleted successfully!</label>
+
+                    <div>
+                        <a @click="isFeedbackOpen = false"
+                            href="/unit?floor_id=<?= $unit['floor_id'] ?>&unit_id=<?= $unit['unit_id'] ?>"
+                            class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+
+
         <!-- Unit Not Delete Modal -->
         <?php if (isset($_GET['not_delete_unit_msg'])): ?>
         <div x-show="isFeedbackOpen = <?= $_GET['not_delete_unit_msg'] ?>" x-cloak
@@ -35,7 +68,8 @@
                         Empty the unit <?= $unit['unit_number'] ?> tenants first!</label>
 
                     <div>
-                        <a @click="isFeedbackOpen = false" href="/unit?unit_id=<?= $unit['unit_id'] ?>"
+                        <a @click="isFeedbackOpen = false"
+                            href="/unit?floor_id=<?= $unit['floor_id'] ?>&unit_id=<?= $unit['unit_id'] ?>"
                             class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
 
                     </div>
@@ -115,11 +149,12 @@
                     class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
 
                     <label class="text-md text-green-400 mb-5" for="floorNumber">Tenant is
-                        Added
+                        Updated
                         Successfully!</label>
 
                     <div>
-                        <a @click="isFeedbackOpen = false" href="/unit?unit_id=<?= $unit['unit_id'] ?>"
+                        <a @click="isFeedbackOpen = false"
+                            href="/unit?floor_id=<?= $unit['floor_id'] ?>&unit_id=<?= $unit['unit_id'] ?>"
                             class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
                     </div>
 
@@ -150,7 +185,8 @@
                         Successfully!</label>
 
                     <div>
-                        <a @click="isFeedbackOpen = false" href="/unit?unit_id=<?= $unit['unit_id'] ?>"
+                        <a @click="isFeedbackOpen = false"
+                            href="/unit?floor_id=<?= $unit['floor_id'] ?>&unit_id=<?= $unit['unit_id'] ?>"
                             class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
                     </div>
 
@@ -181,7 +217,8 @@
                         Successfully!</label>
 
                     <div>
-                        <a @click="isFeedbackOpen = false" href="/unit?unit_id=<?= $unit['unit_id'] ?>"
+                        <a @click="isFeedbackOpen = false"
+                            href="/unit?floor_id=<?= $unit['floor_id'] ?>&unit_id=<?= $unit['unit_id'] ?>"
                             class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
                     </div>
 
@@ -208,7 +245,7 @@
 
                         <form method="POST">
                             <div class="flex justify-center">
-                                <label class="text-red-500 font-medium">Are you sure you want to delete unit
+                                <label class="text-yellow-500 font-medium">Are you sure you want to delete unit
                                     <?= $unit['unit_number'] ?>?</label>
                             </div>
 
@@ -341,7 +378,7 @@
                                         <td
                                             class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
 
-                                            <a href="/tenant?unit_id=<?= $tenant['unit_id'] ?>&tenant_id=<?= $tenant['tenant_id'] ?>"
+                                            <a href="/tenant?floor_id=<?= $_GET['floor_id'] ?>&unit_id=<?= $tenant['unit_id'] ?>&tenant_id=<?= $tenant['tenant_id'] ?>"
                                                 class="inline-flex items-center gap-x-2 px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 hover:bg-sky-500 rounded-lg transition-colors duration-300 transform">
 
                                                 <span class="hidden sm:flex">Edit</span>

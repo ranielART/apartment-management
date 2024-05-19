@@ -8,7 +8,7 @@ require 'head.php';
             <?= $heading; ?>
         </h1>
 
-        <a href="/unit?unit_id=<?= $_GET['unit_id'] ?>"
+        <a href="/unit?floor_id=<?= $_GET['floor_id'] ?>&unit_id=<?= $_GET['unit_id'] ?>"
             class="inline-flex items-center gap-x-2 px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 hover:bg-sky-500 rounded-lg transition-colors duration-300 transform">
 
             <span class="hidden sm:flex">Go Back</span>

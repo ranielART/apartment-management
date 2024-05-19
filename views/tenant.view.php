@@ -3,13 +3,58 @@
 
 <?php require "partials/nav.php" ?>
 
-<main class="w-full flex flex-col overflow-hidden" x-data="{ isOpen: false, isFeedbackOpen: false }">
+<main class="w-full flex flex-col overflow-hidden"
+    x-data="{ isOpen: false, isFeedbackOpen: false, isDeleteConfirmation: false }">
 
     <?php require "partials/tenant-add-banner.php" ?>
 
     <section
         class="mx-auto p-12 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center"
         style="max-height: calc(100vh - 110px);">
+
+        <!-- Tenant Delete Confirmation Modal -->
+        <div class="relative flex justify-center">
+
+            <div x-show="isDeleteConfirmation" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-200 transform"
+                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                class="fixed inset-0 z-10 overflow-y-auto">
+                <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                    <div class="fixed inset-0">
+                        <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                    </div>
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                    <div
+                        class="inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+
+                        <form method="POST">
+                            <div class="flex justify-center items-center">
+                                <label class="text-yellow-500 font-medium">Are you sure you want to delete tenant
+                                    <?= $tenant['tenant_name'] ?>?</label>
+                            </div>
+
+                            <div class="mt-4 sm:mt-6 grid grid-cols-1 gap-x-2 sm:grid-cols-2 sm:w-full @click="
+                                isOpen=false"">
+
+                                <label @click="isDeleteConfirmation = false"
+                                    class="px-4 py-2 mt-3 text-white cursor-pointer text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">Cancel</label>
+
+                                <button type="submit" name="deleteTenant"
+                                    class="text-center px-4 py-2 mt-3 text-white text-sm font-medium rounded-md bg-blue-700 hover:bg-blue-900 transition-colors duration-300 transform">
+                                    Proceed
+                                </button>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="mx-auto bg-gray-950 rounded-md p-8 max-w-lg">
             <form method="POST">
@@ -117,7 +162,8 @@
                                 <label for="eName" class="block text-sm  font-medium leading-6 text-gray-300">
                                     Name</label>
                                 <div class="mt-2">
-                                    <input type="text" name="eName" id="eName" placeholder="Name" value=""
+                                    <input type="text" name="eName" id="eName" placeholder="Name"
+                                        value="<?= $tenant['name'] ?>"
                                         class="block bg-gray-800 w-full  rounded-md border border-gray-600 py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
@@ -129,7 +175,7 @@
                                     Contact Number</label>
                                 <div class="mt-2">
                                     <input type="text" name="eContactNumber" id="eContactNumber"
-                                        placeholder="Contact Number"
+                                        value="<?= $tenant['econtact_number'] ?>" placeholder="Contact Number"
                                         class="block bg-gray-800 w-full  rounded-md border border-gray-600  py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
@@ -142,6 +188,7 @@
                                     Address</label>
                                 <div class="mt-2">
                                     <input type="text" name="eAddress" id="eAddress" placeholder="Address"
+                                        value="<?= $tenant['eaddress'] ?>"
                                         class="block bg-gray-800 w-full  rounded-md border border-gray-600 py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
@@ -151,7 +198,6 @@
                         </div>
 
                     </div>
-
 
                 </div>
                 <hr class="border-gray-800 my-2 mt-12">

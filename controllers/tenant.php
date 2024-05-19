@@ -9,7 +9,11 @@ $db = new Database($config['database']);
 
 $heading = 'Edit Tenant';
 
-$tenant = $db->query('SELECT * from tenants where tenant_id = :tenant_id', [
+$tenant = $db->query('SELECT tenants.*, emergency_contacts.* 
+FROM tenants 
+LEFT JOIN emergency_contacts 
+ON tenants.tenant_id = emergency_contacts.tenant_id 
+WHERE tenants.tenant_id = :tenant_id', [
     'tenant_id' => $_GET['tenant_id']
 ])->find();
 
@@ -48,24 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
 
-        // if (Validator::string($_POST['eName'], 50)) {
-
-        //     $errors['eName'] = 'Required!';
-
-        // }
-
-        // if (Validator::string($_POST['eContactNumber'], 50)) {
-
-        //     $errors['eName'] = 'Required!';
-
-        // }
-
-        // if (Validator::string($_POST['eAddress'], 50)) {
-
-        //     $errors['eAddress'] = 'Required!';
-
-        // }
-
         if (empty($errors)) {
 
             $db->query('UPDATE `tenants` SET `tenant_name`= :tenant_name, `tenant_age`=:tenant_age, `contact_number`= :contact_number, `address`=:address, `moveIn_date` = :moveIn_date WHERE unit_id = :unit_id AND tenant_id = :tenant_id', [
@@ -78,18 +64,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'tenant_id' => $_GET['tenant_id']
             ]);
 
-            $db->query('INSERT INTO emergency_contacts(tenant_id, `name`, contact_number, `address`) VALUES(:tenant_id, :name, :contact_number, :address)', [
+            $numOfEcontacts = $db->query('SELECT * FROM emergency_contacts WHERE tenant_id = :tenant_id', [
                 'tenant_id' => $_GET['tenant_id'],
-                'name' => $_POST['eName'],
-                'contact_number' => $_POST['eContactNumber'],
-                'address' => $_POST['eAddress'],
-            ]);
 
-            $numOfTenantsInUnit = $db->query('SELECT tenants.*, units.unit_number from tenants LEFT JOIN units on tenants.unit_id = units.unit_id WHERE tenants.unit_id = :unit_id', [
+            ])->getRowCount();
+
+            if ($numOfEcontacts > 0) {
+                $db->query('UPDATE `emergency_contacts` SET `name`= :name, `econtact_number`= :contact_number, `eaddress`=:address WHERE tenant_id = :tenant_id', [
+                    'name' => $_POST['eName'],
+                    'contact_number' => $_POST['eContactNumber'],
+                    'address' => $_POST['eAddress'],
+                    'tenant_id' => $_GET['tenant_id']
+                ]);
+            } else {
+                $db->query('INSERT INTO emergency_contacts(tenant_id, `name`, econtact_number, `eaddress`) VALUES(:tenant_id, :name, :contact_number, :address)', [
+                    'tenant_id' => $_GET['tenant_id'],
+                    'name' => $_POST['eName'],
+                    'contact_number' => $_POST['eContactNumber'],
+                    'address' => $_POST['eAddress'],
+                ]);
+            }
+
+            $numOfTenantsInUnit = $db->query('SELECT tenants.*, units.unit_number from tenants LEFT JOIN units on tenants.unit_id = units.unit_id WHERE tenants.unit_id = :unit_id AND tenants.isActive = 1', [
 
                 'unit_id' => $_GET['unit_id']
 
             ])->getRowCount();
+
+
 
             if ($numOfTenantsInUnit > 0) {
                 $db->query('UPDATE `units` SET `availability`= 1 WHERE `unit_id`= :unit_id AND isActive = 1', [
@@ -108,10 +110,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
 
             $toUnit = $_GET["unit_id"];
-            header("Location: /unit?unit_id={$toUnit}&update_tenant_msg=true");
+            header("Location: /unit?floor_id={$_GET['floor_id']}&unit_id={$toUnit}&update_tenant_msg=true");
             exit();
 
         }
+    }
+
+
+    if (isset($_POST['deleteTenant'])) {
+        $db->query('UPDATE `tenants` SET `isActive`= 0 WHERE `tenant_id`= :tenant_id', [
+            'tenant_id' => $_GET['tenant_id']
+        ]);
+
+        $numOfTenantsInUnit = $db->query('SELECT tenants.*, units.unit_number from tenants LEFT JOIN units on tenants.unit_id = units.unit_id WHERE tenants.unit_id = :unit_id AND tenants.isActive = 1', [
+
+            'unit_id' => $_GET['unit_id']
+
+        ])->getRowCount();
+
+        if ($numOfTenantsInUnit > 0) {
+            $db->query('UPDATE `units` SET `availability`= 1 WHERE `unit_id`= :unit_id AND isActive = 1', [
+
+                'unit_id' => $_GET['unit_id']
+            ]);
+        }
+
+        if ($numOfTenantsInUnit <= 0) {
+            $db->query('UPDATE `units` SET `availability`= 0 WHERE `unit_id`= :unit_id AND isActive = 1', [
+
+                'unit_id' => $_GET['unit_id']
+            ]);
+
+            $unitsOccupiedCount = $db->query('SELECT * FROM units WHERE floor_id = :floor_id AND `availability` = 1 AND isActive = 1', [
+                'floor_id' => $_GET['floor_id']
+            ])->getRowCount();
+
+
+            $db->query('UPDATE `floors` SET `units_occupied` = :units_occupied WHERE `floor_id`= :floor_id AND isActive = 1', [
+                'units_occupied' => $unitsOccupiedCount,
+                'floor_id' => $_GET['floor_id']
+            ]);
+        }
+
+
+
+        $toUnit = $_GET['unit_id'];
+        header("Location: /unit?unit_id={$toUnit}&delete_tenant_msg=true");
+        exit();
     }
 
 
