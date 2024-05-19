@@ -14,7 +14,7 @@ $unit = $db->query('SELECT units.*, unit_types.unit_type FROM units LEFT JOIN un
 $unitTypes = $db->query('SELECT * FROM unit_types')->get();
 
 //Tenants data per unit
-$tenantsInUnit = $db->query('SELECT tenants.*, units.unit_number from tenants LEFT JOIN units on tenants.unit_id = units.unit_id WHERE tenants.unit_id = :unit_id', [
+$tenantsInUnit = $db->query('SELECT tenants.*, units.unit_number from tenants LEFT JOIN units on tenants.unit_id = units.unit_id WHERE tenants.unit_id = :unit_id AND tenants.isActive = 1', [
 
     'unit_id' => $_GET['unit_id']
 
@@ -59,12 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($numOfTenantsInUnit > 0) {
             $preventRowDeleteMessage = "You can only delete units with no tenants. Empty your tenats first!";
-            $toFloor = $_GET["floor_id"];
-            header("Location: /floor?floor_id={$toFloor}&not_delete_unit_msg=true");
+            $toUnit = $_GET["unit_id"];
+            header("Location: /unit?unit_id={$toUnit}&not_delete_unit_msg=true");
         } else {
-
-
-
 
             $db->query('UPDATE units SET isActive = 0 WHERE unit_id = :unit_id', [
                 'unit_id' => $_GET['unit_id']
@@ -76,10 +73,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             ])->getRowCount();
 
-            $db->query('UPDATE floors SET total_units = :total_units WHERE floor_id = :floor_id', [
+            $numOfOccupiedUnits = $db->query('SELECT * from units where floor_id = :floor_id AND isActive = 1 AND `availability` = 1', [
+
+                'floor_id' => $_GET['floor_id']
+
+            ])->getRowCount();
+
+            $db->query('UPDATE floors SET total_units = :total_units, units_occupied = :units_occupied WHERE floor_id = :floor_id', [
                 'total_units' => $numOfUnits,
+                'units_occupied' => $numOfOccupiedUnits,
                 'floor_id' => $_GET['floor_id']
             ]);
+
+
 
             $toFloor = $_GET["floor_id"];
             header("Location: /floor?floor_id={$toFloor}&delete_unit_msg=true");

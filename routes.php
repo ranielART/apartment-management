@@ -10,5 +10,6 @@ return [
     '/unit' => 'controllers/unit.php',
     '/unit/add' => 'controllers/unit-add.php',
     '/tenant/add' => 'controllers/tenant-add.php',
+    '/tenant' => 'controllers/tenant.php',
     '/tenants' => 'controllers/tenants.php'
 ];

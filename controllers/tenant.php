@@ -7,11 +7,15 @@ require 'Validator.php';
 $config = require ('config.php');
 $db = new Database($config['database']);
 
-$heading = 'Tenant';
+$heading = 'Edit Tenant';
+
+$tenant = $db->query('SELECT * from tenants where tenant_id = :tenant_id', [
+    'tenant_id' => $_GET['tenant_id']
+])->find();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if (isset($_POST['addTenant'])) {
+    if (isset($_POST['updateTenant'])) {
         $errors = [];
 
         if (Validator::string($_POST['tenantName'], 100)) {
@@ -64,16 +68,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (empty($errors)) {
 
-            $db->query('INSERT INTO tenants(tenant_name, tenant_age, contact_number, `address`, moveIn_date, unit_id) VALUES(:tenant_name, :tenant_age, :contact_number, :address, :moveIn_date, :unit_id)', [
+            $db->query('UPDATE `tenants` SET `tenant_name`= :tenant_name, `tenant_age`=:tenant_age, `contact_number`= :contact_number, `address`=:address, `moveIn_date` = :moveIn_date WHERE unit_id = :unit_id AND tenant_id = :tenant_id', [
                 'tenant_name' => $_POST['tenantName'],
                 'tenant_age' => $_POST['tenantAge'],
                 'contact_number' => $_POST['contactNumber'],
                 'address' => $_POST['address'],
                 'moveIn_date' => $_POST['moveInDate'],
-                'unit_id' => $_GET['unit_id']
+                'unit_id' => $_GET['unit_id'],
+                'tenant_id' => $_GET['tenant_id']
             ]);
 
-
+            $db->query('INSERT INTO emergency_contacts(tenant_id, `name`, contact_number, `address`) VALUES(:tenant_id, :name, :contact_number, :address)', [
+                'tenant_id' => $_GET['tenant_id'],
+                'name' => $_POST['eName'],
+                'contact_number' => $_POST['eContactNumber'],
+                'address' => $_POST['eAddress'],
+            ]);
 
             $numOfTenantsInUnit = $db->query('SELECT tenants.*, units.unit_number from tenants LEFT JOIN units on tenants.unit_id = units.unit_id WHERE tenants.unit_id = :unit_id', [
 
@@ -98,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
 
             $toUnit = $_GET["unit_id"];
-            header("Location: /unit?unit_id={$toUnit}&add_tenant_msg=true");
+            header("Location: /unit?unit_id={$toUnit}&update_tenant_msg=true");
             exit();
 
         }
@@ -107,4 +117,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 }
 
-require 'views/tenant-add.view.php';
+require 'views/tenant.view.php';

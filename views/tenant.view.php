@@ -17,8 +17,8 @@
 
                     <div class="border-b border-gray-900/10">
                         <h2 class="text-xl font-bold leading-7 text-gray-300">Tenant Details</h2>
-                        <p class="mt-1 text-sm leading-6 text-gray-400">Fill out all the necessary details about the
-                            tenant.
+                        <p class="mt-1 text-sm leading-6 text-gray-400">You can edit the personal information of tenants
+                            in this section.
                         </p>
 
                         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 ">
@@ -28,6 +28,7 @@
                                     Name</label>
                                 <div class="mt-2">
                                     <input type="text" name="tenantName" id="tenantName" placeholder="Name"
+                                        value="<?= $tenant['tenant_name'] ?>"
                                         class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('tenantName'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
@@ -40,6 +41,7 @@
                                         Age</label>
                                     <div class="mt-2">
                                         <input type="number" name="tenantAge" id="tenantAge" placeholder="Age"
+                                            value="<?= $tenant['tenant_age'] ?>"
                                             class="py-1.5 ps-3 block bg-gray-800 w-full max-w-32 rounded-md border border-gray-600 <?= isEmpty('tenantAge'); ?> text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                     </div>
@@ -63,7 +65,7 @@
                                         </div>
 
                                         <input datepicker datepicker-format="yyyy/mm/dd" type="text" name="moveInDate"
-                                            id="moveInDate"
+                                            value="<?= $tenant['moveIn_date'] ?>" id="moveInDate"
                                             class="bg-gray-800 mt-2 border placeholder:text-gray-500 border-gray-600 text-gray-300 text-sm rounded-lg w-full px-10 <?= isEmpty('moveInDate'); ?>"
                                             placeholder="Select date">
 
@@ -80,7 +82,7 @@
                                     Contact Number</label>
                                 <div class="mt-2">
                                     <input type="text" name="contactNumber" id="contactNumber"
-                                        placeholder="Contact Number"
+                                        value="<?= $tenant['contact_number'] ?>" placeholder="Contact Number"
                                         class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('contactNumber'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
@@ -93,6 +95,7 @@
                                     Address</label>
                                 <div class="mt-2">
                                     <input type="text" name="address" id="address" placeholder="Address"
+                                        value="<?= $tenant['address'] ?>"
                                         class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('address'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
@@ -104,8 +107,8 @@
                     </div>
 
                     <!-- EMERGENCY CONTACT -->
-                    <!-- <hr class="border-gray-800 my-2"> -->
-                    <!-- <div class="border-b border-gray-900/10 pb-12">
+                    <hr class="border-gray-800 my-2">
+                    <div class="border-b border-gray-900/10 pb-12">
                         <h2 class="text-xl font-bold leading-7 text-gray-300">Emergency Contact</h2>
 
                         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 ">
@@ -114,8 +117,8 @@
                                 <label for="eName" class="block text-sm  font-medium leading-6 text-gray-300">
                                     Name</label>
                                 <div class="mt-2">
-                                    <input type="text" name="eName" id="eName" placeholder="Name"
-                                        class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('eName'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
+                                    <input type="text" name="eName" id="eName" placeholder="Name" value=""
+                                        class="block bg-gray-800 w-full  rounded-md border border-gray-600 py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
                             </div>
@@ -127,7 +130,7 @@
                                 <div class="mt-2">
                                     <input type="text" name="eContactNumber" id="eContactNumber"
                                         placeholder="Contact Number"
-                                        class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('eContactNumber'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
+                                        class="block bg-gray-800 w-full  rounded-md border border-gray-600  py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
 
@@ -139,7 +142,7 @@
                                     Address</label>
                                 <div class="mt-2">
                                     <input type="text" name="eAddress" id="eAddress" placeholder="Address"
-                                        class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('eAddress'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
+                                        class="block bg-gray-800 w-full  rounded-md border border-gray-600 py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
 
@@ -147,17 +150,16 @@
 
                         </div>
 
-                    </div> -->
+                    </div>
 
 
                 </div>
                 <hr class="border-gray-800 my-2 mt-12">
                 <div class="mt-6 flex items-center justify-end gap-x-2 md:gap-x-4">
-                    <a href="/unit?unit_id=<?= $_GET['unit_id'] ?>" class=" min-w-10 flex font-medium px-5 border border-gray-200 py-2 text-sm text-gray-200
-                        hover:bg-gray-900 transition-colors duration-200 rounded-lg shrink-0 sm:w-auto">Cancel</a>
-                    <button type="submit" name="addTenant"
-                        class="min-w-10 flex font-medium px-3 md:px-6 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-600 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-sky-500 ">Add
-                        Tenant</button>
+                    <label @click="isDeleteConfirmation = !isDeleteConfirmation"
+                        class="text-gray-400 hover:bg-red-500 font-medium cursor-pointer text-white transition-colors duration-200 bg-red-700 rounded-lg py-1.5 px-5">Delete</label>
+                    <button type="submit" name="updateTenant"
+                        class="min-w-10 flex font-medium px-3 md:px-6 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-600 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-sky-500 ">Update</button>
                 </div>
             </form>
         </div>

@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'floor_id' => $_GET['floor_id']
             ])->getRowCount();
 
-            $unitsOccupiedCount = $db->query('SELECT * FROM units WHERE floor_id = :floor_id AND `availability` = 1 ', [
+            $unitsOccupiedCount = $db->query('SELECT * FROM units WHERE floor_id = :floor_id AND `availability` = 1 AND isActive = 1', [
                 'floor_id' => $_GET['floor_id']
             ])->getRowCount();
 
