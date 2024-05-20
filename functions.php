@@ -9,7 +9,12 @@ function dd($value)
 
     die();
 }
-
+function validateDate($date, $format = 'Y-m-d')
+{
+    $d = DateTime::createFromFormat($format, $date);
+    // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
+    return $d && $d->format($format) === $date;
+}
 function isCurrent($page)
 {
     return $_SERVER['REQUEST_URI'] === $page ? 'bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium transiton-color duration-200' : 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium transiton-color duration-200';

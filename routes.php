@@ -11,5 +11,6 @@ return [
     '/unit/add' => 'controllers/unit-add.php',
     '/tenant/add' => 'controllers/tenant-add.php',
     '/tenant' => 'controllers/tenant.php',
+    '/bill' => 'controllers/bill.php',
     '/tenants' => 'controllers/tenants.php'
 ];
