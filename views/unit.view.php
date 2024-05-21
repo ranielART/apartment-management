@@ -353,7 +353,7 @@
 
                 <div>
 
-                    <h1 class="text-gray-200 font-bold md:text-3xl hidden md:flex">Tenants Table</h1>
+                    <h1 class="text-gray-200 font-bold md:text-3xl hidden md:flex">Units Table</h1>
 
                 </div>
 
@@ -376,31 +376,37 @@
 
             <div class="flex flex-col mt-6 overflow-hidden">
 
+
                 <div class="-mx-4 -my-2 overflow-hidden overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="max-h-[18rem] overflow-y-auto">
-                        <div class="inline-block overflow-hidden min-w-full py-2 align-middle px-6 lg:px-8">
+                        <div class="inline-block min-w-full py-2 align-middle px-6 lg:px-8">
 
                             <div class="overflow-hidden shadow-lg rounded-lg">
 
-
-                                <table class="min-w-full divide-y divide-gray-700">
-                                    <thead class="bg-gray-800 top-0 z-10 sticky">
+                                <table class="min-w-full divide-y divide-gray-700 ">
+                                    <thead class="bg-gray-800">
                                         <tr>
                                             <th scope="col"
                                                 class="min-w-40 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
-                                                Name</th>
-                                            <th scope="col"
-                                                class="min-w-28 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
-                                                Age</th>
+                                                Name
+                                            </th>
+
                                             <th scope="col"
                                                 class="min-w-40 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
-                                                Contact Number</th>
+                                                Age
+                                            </th>
+
+                                            <th scope="col"
+                                                class="min-w-40 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
+                                                Contact Number
+                                            </th>
                                             <th scope="col"
                                                 class="min-w-40 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
                                                 Move In Date</th>
                                             <th scope="col"
-                                                class="min-w-28 max-w-32 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
+                                                class="max-w-28 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
                                                 Edit</th>
+
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-800 bg-gray-900">
@@ -440,43 +446,47 @@
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
+
                                 </table>
-                            </div>
 
 
 
-                            <?php if ($numOfTenantsInUnit <= 0): ?>
+                                <?php if ($numOfTenantsInUnit <= 0): ?>
 
-                            <div class="flex items-center p-20 text-center bg-gray-900">
+                                <div class="flex items-center p-20 text-center bg-gray-900">
 
-                                <div class="flex flex-col w-full max-w-sm px-4 mx-auto">
-                                    <div class="p-3 mx-auto text-blue-500 bg-blue-100 rounded-full">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                        </svg>
+                                    <div class="flex flex-col w-full max-w-sm px-4 mx-auto">
+                                        <div class="p-3 mx-auto text-blue-500 bg-blue-100 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                            </svg>
+                                        </div>
+                                        <h1 class="mt-3 text-lg text-gray-300">This unit is empty.</h1>
+                                        <p class="mt-2 text-gray-500">Your current table does not have any tenants.</p>
                                     </div>
-                                    <h1 class="mt-3 text-lg text-gray-300">This unit is empty.</h1>
-                                    <p class="mt-2 text-gray-500">Your current table does not have any tenants.</p>
                                 </div>
-                            </div>
-                            <?php endif; ?>
-                            <div id="noMatchesMessage" class="flex items-center p-20 text-center bg-gray-900"
-                                style="display:none;">
-                                <div class="flex flex-col w-full max-w-sm px-4 mx-auto">
-                                    <div class="p-3 mx-auto text-blue-500 bg-blue-100 rounded-full">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                        </svg>
+                                <?php endif; ?>
+                                <div id="noMatchesMessage" class="flex items-center p-20 text-center bg-gray-900"
+                                    style="display:none;">
+                                    <div class="flex flex-col w-full max-w-sm px-4 mx-auto">
+                                        <div class="p-3 mx-auto text-blue-500 bg-blue-100 rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                            </svg>
+                                        </div>
+                                        <h1 class="mt-3 text-lg text-gray-300">No matches.</h1>
+                                        <p class="mt-2 text-gray-500">The data you entered does not exist in the table.
+                                        </p>
                                     </div>
-                                    <h1 class="mt-3 text-lg text-gray-300">No matches.</h1>
-                                    <p class="mt-2 text-gray-500">The data you entered does not exist in the table.</p>
                                 </div>
-                            </div>
 
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
