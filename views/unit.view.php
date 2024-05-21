@@ -350,7 +350,7 @@
 
                 <div>
 
-                    <h1 class="text-gray-200 font-bold md:text-3xl hidden md:flex">Units Table</h1>
+                    <h1 class="text-gray-200 font-bold md:text-3xl hidden md:flex">Tenants</h1>
 
                 </div>
 
