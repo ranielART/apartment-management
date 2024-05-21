@@ -1,6 +1,6 @@
 <?php
 require 'Validator.php';
-
+session_start();
 $heading = 'Floors';
 
 $config = require ('config.php');

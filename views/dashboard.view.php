@@ -8,7 +8,49 @@
     <?php require "partials/banner.php" ?>
 
     <section
-        class="grid mx-auto md-10 mb-auto  p-12 grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center">
+        class="grid mx-auto md-10 mb-auto  p-12 grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center"
+        x-data="{isFeedLoggedIn: false }">
+
+        <!-- Add login success feedback -->
+        <?php if (isset($_GET['login_successful_msg'])): ?>
+
+            <div x-data="{isFeedLoggedIn: true }" x-show=" isFeedLoggedIn" x-cloak
+                x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0
+                scale-95" x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-200 transform"
+                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                class="fixed inset-0 z-10 overflow-y-auto">
+
+                <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                    <div class="fixed inset-0">
+                        <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                    </div>
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                    <div
+                        class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+
+                        <label class="text-md text-green-400 mb-5" for="floorNumber">Log in Successful.</label>
+
+                        <div>
+
+                            <label @click="isFeedLoggedIn = false"
+                                class="px-10 py-2 mt-3 w-40 cursor-pointer text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">Close</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        <?php endif; ?>
+
+
+
+
+
+
+
 
         <div
             class="min-w-64 md:min-w-56 lg:max-w-md border 2xl:min-w-64 rounded-lg bg-gray-950 border-gray-700 shadow-lg ">
@@ -25,7 +67,6 @@
                     </li>
 
                 </ul>
-
 
             </div>
         </div>

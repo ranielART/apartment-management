@@ -1,5 +1,6 @@
 <?php
 require 'head.php';
+
 ?>
 
 
@@ -13,15 +14,6 @@ require 'head.php';
     <div class="flex flex-col justify-between flex-1 mt-6">
         <nav class="flex-1 -mx-3 space-y-3 ">
 
-            <a class="flex items-center px-3 py-2 <?= isCurrent("/home"); ?>" href="/home">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-5 h-5 2xl:w-6 2xl:h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                </svg>
-
-                <span class="mx-2 text-sm 2xl:text-lg font-medium">Home</span>
-            </a>
 
             <a class="flex items-center px-3 py-2 <?= isCurrent("/dashboard"); ?>" href="/dashboard">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -89,7 +81,7 @@ require 'head.php';
                 <img class="object-cover rounded-full h-7 w-7 2xl:h-8 2xl:w-8"
                     src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&h=634&q=80"
                     alt="avatar" />
-                <span class="text-sm font-medium text-gray-500 2xl:text-lg">Admin</span>
+                <span class="text-sm font-medium text-gray-500 2xl:text-lg"><?= $_SESSION['username'] ?></span>
             </a>
 
         </div>

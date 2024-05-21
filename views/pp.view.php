@@ -9,11 +9,185 @@
 
     <section
         class="mx-auto p-12 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center"
-        style="max-height: calc(100vh - 110px);">
+        style="max-height: calc(100vh - 110px);"
+        x-data="{ isPaidOpen: false, isBillOpen: false, isPaidConfirm: false, isPaySuccess: false }">
 
-        <?php if (isset($_GET['bill_id'])): ?>
-        <div x-data="{ isFeedbackOpen: true }">
-            <div x-show="isFeedbackOpen" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+        <!-- Payment Success Modal -->
+        <?php if (isset($_GET['payment_success_msg'])): ?>
+
+        <?php if (isset($_GET['payment_success_msg'])): ?>
+        <div x-data="{ isPaySuccess: <?= $_GET['payment_success_msg'] ?> }">
+            <div x-show="isPaySuccess" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-200 transform"
+                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                class="fixed inset-0 z-10 overflow-y-auto">
+
+                <div class="flex items-center justify-center min-h-screen px-4 sm:p-0">
+
+                    <div class="fixed inset-0">
+                        <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                    </div>
+
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                    <div
+                        class="inline-block px-4 pt-5 gap-y-5 pb-4 overflow-hidden flex flex-col align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+
+                        <div class="w-full flex justify-center items-center">
+
+                            <label class="text-green-500 font-medium">Transaction performed successfully!</label>
+                        </div>
+
+
+                        <div class="w-full flex justify-center items-center">
+
+                            <a href="/pendingPayments"
+                                class="px-10 py-2 mt-3 w-40 cursor-pointer text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">Close</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <?php endif; ?>
+
+
+        <?php endif; ?>
+
+        <!-- View Paid Modal -->
+        <form method="POST">
+
+            <?php if (isset($_GET['view_paid_modal'])): ?>
+            <div x-data="{ isPaidOpen: <?= $_GET['view_paid_modal'] ?> }">
+                <div x-show="isPaidOpen" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-200 transform"
+                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                    class="fixed inset-0 z-10 overflow-y-auto">
+
+                    <div class="flex items-center justify-center min-h-screen px-4 sm:p-0">
+
+                        <div class="fixed inset-0">
+                            <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                        </div>
+
+                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen"
+                            aria-hidden="true">&#8203;</span>
+                        <div
+                            class="inline-block px-4 pt-5 gap-y-5 pb-4 overflow-hidden flex flex-col align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+                            <div class="w-full flex justify-center items-center">
+                                <label class="text-gray-400 text-xl">Pay</label>
+                            </div>
+
+                            <hr class="border-gray-500 mt-2">
+
+                            <div class="flex justify-between gap-x-3 p-6">
+                                <div class="flex flex-col gap-y-6">
+                                    <label class="text-gray-400 font-bold">Total: </label>
+                                    <label class="text-gray-400 font-bold">PIC: </label>
+                                    <label class="text-gray-400 font-bold">Tenant: </label>
+                                </div>
+
+                                <div class="flex flex-col gap-y-6">
+
+                                    <label class="text-gray-400 font-bold">₱<?= $billPerUnit['total_bill'] ?></label>
+                                    <label class="text-gray-400 font-bold"><?= $_SESSION['name'] ?></label>
+                                    <div>
+
+                                        <select name="tenantNamePay" id="tenantNamePay"
+                                            class="w-full rounded-md bg-gray-900 cursor-pointer text-gray-300 py-1.5 <?= isEmpty('unitType'); ?>">
+
+                                            <?php foreach ($tenants as $tenant): ?>
+                                            <option value="<?= $tenant['tenant_id'] ?>">
+                                                <?= $tenant['tenant_name'] ?>
+                                            </option>
+                                            <?php endforeach; ?>
+
+                                        </select>
+
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <hr class="border-gray-500 mb-2">
+
+
+                            <div class="w-full flex justify-between items-center">
+
+                                <a href="/pendingPayments"
+                                    class="px-10 py-2 mt-3 w-40 cursor-pointer text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">Cancel</a>
+                                <label @click="isPaidConfirm = true"
+                                    class="px-10 py-2 mt-3 w-40 cursor-pointer text-white text-sm font-medium bg-green-700 text-center rounded-md border border-green-700 hover:border-green-500 hover:bg-green-500 transition-colors duration-300 transform">Pay
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <?php endif; ?>
+
+        </form>
+
+
+        <!-- Paid Confimation Modal -->
+        <div class="relative flex justify-center">
+
+            <div x-show="isPaidConfirm" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-200 transform"
+                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                class="fixed inset-0 z-10 overflow-y-auto">
+                <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                    <div class="fixed inset-0">
+                        <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                    </div>
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                    <div
+                        class="inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+
+                        <form method="POST">
+                            <div class="flex justify-center">
+                                <label class="text-yellow-500 font-medium">Do you want to proceed to
+                                    the transaction?</label>
+                            </div>
+
+                            <div class="mt-4 sm:mt-6 grid grid-cols-1 gap-x-2 sm:grid-cols-2 sm:w-full">
+
+                                <label @click=" isPaidConfirm = false"
+                                    class="px-4 py-2 mt-3 text-white cursor-pointer text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">
+                                    Cancel</label>
+
+
+
+                                <button type="submit" name="paidButton"
+                                    class="text-center px-4 py-2 mt-3 text-white text-sm font-medium rounded-md bg-blue-700 hover:bg-blue-900 transition-colors duration-300 transform">
+                                    Proceed
+                                </button>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Bill modal -->
+        <?php if (isset($_GET['view_bill_modal'])): ?>
+        <div x-data="{ isBillOpen: <?= $_GET['view_bill_modal'] ?> }">
+            <div x-show="isBillOpen" x-cloak x-transition:enter="transition ease-out duration-300 transform"
                 x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
                 x-transition:leave="transition ease-in duration-200 transform"
                 x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
@@ -70,10 +244,6 @@
                             <a href="/pendingPayments"
                                 class="px-10 py-2 mt-3 w-40 cursor-pointer text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">Close</a>
 
-                            <!-- <button @click="isFeedbackOpen = false" name="closeButton" type="submit"
-                                class="px-10 py-2 mt-3 w-40 cursor-pointer text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">
-                                Close
-                            </button> -->
                         </div>
 
                     </div>
@@ -146,7 +316,7 @@
 
 
                 <div class="-mx-4 -my-2 overflow-hidden overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="max-h-[18rem] overflow-y-auto">
+                    <div class="max-h-[24rem] overflow-y-auto">
                         <div class="inline-block min-w-full py-2 align-middle px-6 lg:px-8">
 
                             <div class="overflow-hidden shadow-lg rounded-lg">
@@ -216,7 +386,7 @@
                                             <td
                                                 class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
 
-                                                <a href="/bill?"
+                                                <a href="/pendingPayments?unit_id=<?= $bill['unit_id'] ?>&bill_id=<?= $bill['bill_id'] ?>&view_paid_modal=true"
                                                     class="inline-flex items-center gap-x-2 px-5 py-2 text-sm font-medium text-center text-white bg-green-800 hover:bg-green-600 rounded-lg transition-colors duration-300 transform">
 
                                                     <span class="hidden sm:flex">Paid</span>
@@ -240,8 +410,7 @@
                                     </tbody>
 
                                 </table>
-
-                                <!-- <?php if ($unitsRowCount <= 0): ?>
+                                <?php if ($numberOfPending <= 0): ?>
 
                                 <div class="flex items-center p-20 text-center bg-gray-900">
 
@@ -253,8 +422,9 @@
                                                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                             </svg>
                                         </div>
-                                        <h1 class="mt-3 text-lg text-gray-300">This floor is empty.</h1>
-                                        <p class="mt-2 text-gray-500">Your current table does not have any unit.</p>
+                                        <h1 class="mt-3 text-lg text-gray-300">Pending Payments is empty.</h1>
+                                        <p class="mt-2 text-gray-500">Your current table does not have any pending
+                                            payments.</p>
                                     </div>
                                 </div>
                                 <?php endif; ?>
@@ -272,9 +442,7 @@
                                         <p class="mt-2 text-gray-500">The data you entered does not exist in the table.
                                         </p>
                                     </div>
-                                </div> -->
-
-
+                                </div>
 
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 <?php
 require 'Validator.php';
-
+session_start();
 
 $config = require ('config.php');
 $db = new Database($config['database']);

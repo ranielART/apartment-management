@@ -1,6 +1,6 @@
 <?php
 require 'Validator.php';
-
+session_start();
 $heading = 'Add Unit';
 
 $config = require ('config.php');

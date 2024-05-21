@@ -3,131 +3,162 @@
 
 <?php require "partials/nav.php" ?>
 
-<main class="w-full flex flex-col overflow-hidden" x-data="{ isFeedbackOpen: false, isDeleteConfirmation: false }">
+<main class="w-full flex flex-col overflow-hidden"
+    x-data="{ isFeedbackOpen: false, isDeleteConfirmation: false, isNotOccupied: false }">
 
     <?php require "partials/floor-banner.php" ?>
+
+    <!-- Unit not occupied, can't bill modal -->
+
+    <?php if (isset($_GET['cant_bill_msg'])): ?>
+        <div x-show="isNotOccupied = <?= $_GET['cant_bill_msg'] ?>" x-cloak
+            x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
+
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+
+                    <label class="text-md text-yellow-500 mb-5" for="floorNumber">This Unit is not occupied!</label>
+
+                    <div>
+                        <a @click="isNotOccupied = false" href="/floor?floor_id=<?= $floor['floor_id'] ?>"
+                            class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
 
     <!-- Unit delete feedback successfull -->
 
     <?php if (isset($_GET['delete_unit_msg'])): ?>
-    <div x-show="isFeedbackOpen = <?= $_GET['delete_unit_msg'] ?>" x-cloak
-        x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
-        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
-        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-        class="fixed inset-0 z-10 overflow-y-auto">
+        <div x-show="isFeedbackOpen = <?= $_GET['delete_unit_msg'] ?>" x-cloak
+            x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
 
-        <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-            <div class="fixed inset-0">
-                <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-            </div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div
-                class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-
-                <label class="text-md text-red-500 mb-5" for="floorNumber">Unit Deleted Successfully</label>
-
-                <div>
-                    <a @click="isFeedbackOpen = false" href="/floor?floor_id=<?= $_GET['floor_id'] ?>"
-                        class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
                 </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
 
+                    <label class="text-md text-red-500 mb-5" for="floorNumber">Unit Deleted Successfully</label>
+
+                    <div>
+                        <a @click="isFeedbackOpen = false" href="/floor?floor_id=<?= $_GET['floor_id'] ?>"
+                            class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
     <?php endif; ?>
 
     <!-- Unit added Success -->
     <?php if (isset($_GET['unit_add_msg'])): ?>
-    <div x-show="isFeedbackOpen = <?= $_GET['unit_add_msg'] ?>" x-cloak
-        x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
-        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
-        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-        class="fixed inset-0 z-10 overflow-y-auto">
+        <div x-show="isFeedbackOpen = <?= $_GET['unit_add_msg'] ?>" x-cloak
+            x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
 
-        <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-            <div class="fixed inset-0">
-                <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-            </div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div
-                class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-
-                <label class="text-md text-green-400 mb-5" for="floorNumber">Unit Added
-                    Successfully!</label>
-
-                <div>
-                    <a @click="isFeedbackOpen = false" href="/floor?floor_id=<?= $floor['floor_id'] ?>"
-                        class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
                 </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
 
+                    <label class="text-md text-green-400 mb-5" for="floorNumber">Unit Added
+                        Successfully!</label>
+
+                    <div>
+                        <a @click="isFeedbackOpen = false" href="/floor?floor_id=<?= $floor['floor_id'] ?>"
+                            class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
     <?php endif; ?>
 
     <!-- Edit Floor feedback confirm-->
     <?php if (isset($_GET['edit_floor_msg'])): ?>
-    <div x-show="isFeedbackOpen = <?= $_GET['edit_floor_msg'] ?>" x-cloak
-        x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
-        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
-        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-        class="fixed inset-0 z-10 overflow-y-auto">
+        <div x-show="isFeedbackOpen = <?= $_GET['edit_floor_msg'] ?>" x-cloak
+            x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
 
-        <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-            <div class="fixed inset-0">
-                <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-            </div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div
-                class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-
-                <label class="text-md text-green-400 mb-5" for="floorNumber">Floor <?= $floor['floor_number'] ?> is
-                    updated
-                    Successfully!</label>
-
-                <div>
-                    <a @click="isFeedbackOpen = false" href="/floor?floor_id=<?= $floor['floor_id'] ?>"
-                        class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
                 </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
 
+                    <label class="text-md text-green-400 mb-5" for="floorNumber">Floor <?= $floor['floor_number'] ?> is
+                        updated
+                        Successfully!</label>
+
+                    <div>
+                        <a @click="isFeedbackOpen = false" href="/floor?floor_id=<?= $floor['floor_id'] ?>"
+                            class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
     <?php endif; ?>
 
     <?php if (isset($_GET['not_delete_floor_msg'])): ?>
-    <div x-show="isFeedbackOpen = <?= $_GET['not_delete_floor_msg'] ?? $_GET['delete_floor_msg'] ?>" x-cloak
-        x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
-        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
-        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-        class="fixed inset-0 z-10 overflow-y-auto">
+        <div x-show="isFeedbackOpen = <?= $_GET['not_delete_floor_msg'] ?? $_GET['delete_floor_msg'] ?>" x-cloak
+            x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
 
-        <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-            <div class="fixed inset-0">
-                <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-            </div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div
-                class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-
-
-                <label class="text-md text-yellow-600 mb-5" for="floorNumber">You can only delete floors with no units.
-                    Empty the floor <?= $floor['floor_number'] ?> units first!</label>
-
-                <div>
-                    <?php if (isset($_GET['not_delete_floor_msg'])): ?>
-
-                    <a @click="isFeedbackOpen = false" href="/floor?floor_id=<?= $floor['floor_id'] ?>"
-                        class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
-                    <?php endif; ?>
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
 
 
+                    <label class="text-md text-yellow-600 mb-5" for="floorNumber">You can only delete floors with no units.
+                        Empty the floor <?= $floor['floor_number'] ?> units first!</label>
+
+                    <div>
+                        <?php if (isset($_GET['not_delete_floor_msg'])): ?>
+
+                            <a @click="isFeedbackOpen = false" href="/floor?floor_id=<?= $floor['floor_id'] ?>"
+                                class="px-10 py-2 mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">OK</a>
+                        <?php endif; ?>
+
+
+
+                    </div>
 
                 </div>
-
             </div>
         </div>
-    </div>
     <?php endif; ?>
 
 
@@ -219,29 +250,29 @@
         <!-- SEARCH -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-        $(document).ready(function() {
-            $('#searchInput').keyup(function() {
-                var searchText = $(this).val().toLowerCase();
-                var hasMatches = false;
+            $(document).ready(function () {
+                $('#searchInput').keyup(function () {
+                    var searchText = $(this).val().toLowerCase();
+                    var hasMatches = false;
 
-                $('tbody tr').each(function() {
-                    var rowText = $(this).text().toLowerCase();
-                    if (rowText.indexOf(searchText) !== -1) {
-                        $(this).show();
-                        hasMatches = true;
+                    $('tbody tr').each(function () {
+                        var rowText = $(this).text().toLowerCase();
+                        if (rowText.indexOf(searchText) !== -1) {
+                            $(this).show();
+                            hasMatches = true;
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+
+                    if (hasMatches) {
+                        $('#noMatchesMessage').hide();
                     } else {
-                        $(this).hide();
+                        $('#noMatchesMessage')
+                            .show();
                     }
                 });
-
-                if (hasMatches) {
-                    $('#noMatchesMessage').hide();
-                } else {
-                    $('#noMatchesMessage')
-                        .show();
-                }
             });
-        });
         </script>
 
 
@@ -293,7 +324,7 @@
 
 
                 <div class="-mx-4 -my-2 overflow-hidden overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="max-h-[18rem] overflow-y-auto">
+                    <div class="max-h-[24rem] overflow-y-auto">
                         <div class="inline-block min-w-full py-2 align-middle px-6 lg:px-8">
 
                             <div class="overflow-hidden shadow-lg rounded-lg">
@@ -328,58 +359,78 @@
                                     <tbody class="divide-y divide-gray-800 bg-gray-900 overflow-y-scroll">
 
                                         <?php foreach ($units as $unit): ?>
-                                        <tr>
-                                            <td
-                                                class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
-                                                <?= $unit['unit_number'] ?>
-                                            </td>
-                                            <td
-                                                class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
-                                                <?= $unit['unit_type'] ?>
-                                            </td>
-                                            <td
-                                                class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
-                                                <?= $isAvailable = ($unit['availability'] === 1) ? 'Occupied' : 'Not Occupied' ?>
-                                            </td>
-                                            <td
-                                                class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
+                                            <tr>
+                                                <td
+                                                    class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
+                                                    <?= $unit['unit_number'] ?>
+                                                </td>
+                                                <td
+                                                    class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
+                                                    <?= $unit['unit_type'] ?>
+                                                </td>
+                                                <td
+                                                    class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
+                                                    <?= $isAvailable = ($unit['availability'] === 1) ? 'Occupied' : 'Not Occupied' ?>
+                                                </td>
+                                                <td
+                                                    class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
 
-                                                <a href="/unit?floor_id=<?= $floor['floor_id'] ?>&unit_id=<?= $unit['unit_id'] ?>"
-                                                    class="inline-flex items-center gap-x-2 px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 hover:bg-sky-500 rounded-lg transition-colors duration-300 transform">
+                                                    <a href="/unit?floor_id=<?= $floor['floor_id'] ?>&unit_id=<?= $unit['unit_id'] ?>"
+                                                        class="inline-flex items-center gap-x-2 px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 hover:bg-sky-500 rounded-lg transition-colors duration-300 transform">
 
-                                                    <span class="hidden sm:flex">Edit</span>
+                                                        <span class="hidden sm:flex">Edit</span>
 
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                        class="h-5 w-5" fill="currentColor">
-                                                        <path fill="none" d="M0 0h24v24H0z"></path>
-                                                        <path
-                                                            d="M6.41421 15.89L16.5563 5.74785L15.1421 4.33363L5 14.4758V15.89H6.41421ZM7.24264 17.89H3V13.6473L14.435 2.21231C14.8256 1.82179 15.4587 1.82179 15.8492 2.21231L18.6777 5.04074C19.0682 5.43126 19.0682 6.06443 18.6777 6.45495L7.24264 17.89ZM3 19.89H21V21.89H3V19.89Z">
-                                                        </path>
-                                                    </svg>
-                                                </a>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                            class="h-5 w-5" fill="currentColor">
+                                                            <path fill="none" d="M0 0h24v24H0z"></path>
+                                                            <path
+                                                                d="M6.41421 15.89L16.5563 5.74785L15.1421 4.33363L5 14.4758V15.89H6.41421ZM7.24264 17.89H3V13.6473L14.435 2.21231C14.8256 1.82179 15.4587 1.82179 15.8492 2.21231L18.6777 5.04074C19.0682 5.43126 19.0682 6.06443 18.6777 6.45495L7.24264 17.89ZM3 19.89H21V21.89H3V19.89Z">
+                                                            </path>
+                                                        </svg>
+                                                    </a>
 
 
-                                            </td>
-                                            <td
-                                                class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
+                                                </td>
+                                                <td
+                                                    class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
 
-                                                <a href="/bill?floor_id=<?= $floor['floor_id'] ?>&unit_id=<?= $unit['unit_id'] ?>"
-                                                    class="inline-flex items-center gap-x-2 px-5 py-2 text-sm font-medium text-center text-white bg-green-800 hover:bg-green-600 rounded-lg transition-colors duration-300 transform">
+                                                    <?php if ($unit['availability'] === 1): ?>
+                                                        <a href="/bill?floor_id=<?= $floor['floor_id'] ?>&unit_id=<?= $unit['unit_id'] ?>"
+                                                            class="inline-flex items-center gap-x-2 px-5 py-2 text-sm font-medium text-center text-white bg-green-800 hover:bg-green-600 rounded-lg transition-colors duration-300 transform">
 
-                                                    <span class="hidden sm:flex">Bill</span>
+                                                            <span class="hidden sm:flex">Bill</span>
 
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                        fill="currentColor" class="w-5 h-5">
-                                                        <path fill="none" d="M0 0h24v24H0z"></path>
-                                                        <path
-                                                            d="M20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22ZM19 20V4H5V20H19ZM8 9H16V11H8V9ZM8 13H16V15H8V13Z">
-                                                        </path>
-                                                    </svg>
-                                                </a>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                                fill="currentColor" class="w-5 h-5">
+                                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                                <path
+                                                                    d="M20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22ZM19 20V4H5V20H19ZM8 9H16V11H8V9ZM8 13H16V15H8V13Z">
+                                                                </path>
+                                                            </svg>
+                                                        </a>
+                                                    <?php else: ?>
 
-                                            </td>
+                                                        <a href="/floor?floor_id=<?= $floor['floor_id'] ?>&cant_bill_msg=true"
+                                                            class="inline-flex items-center gap-x-2 px-5 py-2 text-sm font-medium text-center text-white bg-green-800 hover:bg-green-600 rounded-lg transition-colors duration-300 transform">
 
-                                        </tr>
+                                                            <span class="hidden sm:flex">Bill</span>
+
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                                fill="currentColor" class="w-5 h-5">
+                                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                                <path
+                                                                    d="M20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22ZM19 20V4H5V20H19ZM8 9H16V11H8V9ZM8 13H16V15H8V13Z">
+                                                                </path>
+                                                            </svg>
+                                                        </a>
+                                                    <?php endif; ?>
+
+
+
+
+                                                </td>
+
+                                            </tr>
                                         <?php endforeach; ?>
 
 
@@ -390,20 +441,20 @@
 
                                 <?php if ($unitsRowCount <= 0): ?>
 
-                                <div class="flex items-center p-20 text-center bg-gray-900">
+                                    <div class="flex items-center p-20 text-center bg-gray-900">
 
-                                    <div class="flex flex-col w-full max-w-sm px-4 mx-auto">
-                                        <div class="p-3 mx-auto text-blue-500 bg-blue-100 rounded-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                            </svg>
+                                        <div class="flex flex-col w-full max-w-sm px-4 mx-auto">
+                                            <div class="p-3 mx-auto text-blue-500 bg-blue-100 rounded-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                                </svg>
+                                            </div>
+                                            <h1 class="mt-3 text-lg text-gray-300">This floor is empty.</h1>
+                                            <p class="mt-2 text-gray-500">Your current table does not have any unit.</p>
                                         </div>
-                                        <h1 class="mt-3 text-lg text-gray-300">This floor is empty.</h1>
-                                        <p class="mt-2 text-gray-500">Your current table does not have any unit.</p>
                                     </div>
-                                </div>
                                 <?php endif; ?>
                                 <div id="noMatchesMessage" class="flex items-center p-20 text-center bg-gray-900"
                                     style="display:none;">

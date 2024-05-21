@@ -1,7 +1,7 @@
 <?php
 
 require 'Validator.php';
-
+session_start();
 
 
 $config = require ('config.php');
