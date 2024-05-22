@@ -3,7 +3,7 @@
 
 <?php require "partials/nav.php" ?>
 
-<main class="w-full flex flex-col overflow-hidden" x-data="{ isOpen: false, isFeedbackOpen: false }">
+<main class="w-full flex flex-col overflow-hidden" x-data="{ isOpen: false, isFeedbackOpen: false, isValidAge: false }">
 
     <?php require "partials/tenant-add-banner.php" ?>
 
@@ -28,6 +28,7 @@
                                     Name</label>
                                 <div class="mt-2">
                                     <input type="text" name="tenantName" id="tenantName" placeholder="Name"
+                                        value="<?= $_POST['tenantName'] ?? '' ?>"
                                         class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('tenantName'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
@@ -39,8 +40,9 @@
                                     <label for="tenantAge" class="block text-sm font-medium leading-6 text-gray-300">
                                         Age</label>
                                     <div class="mt-2">
-                                        <input type="number" name="tenantAge" id="tenantAge" placeholder="Age"
-                                            class="py-1.5 ps-3 block bg-gray-800 w-full max-w-32 rounded-md border border-gray-600 <?= isEmpty('tenantAge'); ?> text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
+                                        <input type="number" name="tenantAge" id="tenantAge" placeholder="Age" min="0"
+                                            value="<?= $_POST['tenantAge'] ?? '' ?>"
+                                            class="py-1.5 ps-3 block bg-gray-800 w-full max-w-32 rounded-md border <?php $isValidAge = (isset($errors['age']) ? 'border-red-500 border-2' : 'border-gray-600') ?>  <?= isEmpty('tenantAge'); ?> text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                     </div>
 
@@ -63,7 +65,7 @@
                                         </div>
 
                                         <input datepicker datepicker-format="yyyy/mm/dd" type="text" name="moveInDate"
-                                            autocomplete="off" id="moveInDate"
+                                            value="<?= $_POST['moveInDate'] ?? '' ?>" autocomplete="off" id="moveInDate"
                                             class="bg-gray-800 mt-2 border placeholder:text-gray-500 border-gray-600 text-gray-300 text-sm rounded-lg w-full px-10 <?= isEmpty('moveInDate'); ?>"
                                             placeholder="Select date">
 
@@ -80,8 +82,8 @@
                                     Contact Number</label>
                                 <div class="mt-2">
                                     <input type="text" name="contactNumber" id="contactNumber"
-                                        placeholder="Contact Number"
-                                        class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('contactNumber'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
+                                        value="<?= $_POST['contactNumber'] ?? '' ?>" placeholder="Contact Number"
+                                        class="block bg-gray-800 w-full rounded-md border border-gray-600 <?= isEmpty('contactNumber'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
 
@@ -93,6 +95,7 @@
                                     Address</label>
                                 <div class="mt-2">
                                     <input type="text" name="address" id="address" placeholder="Address"
+                                        value="<?= $_POST['address'] ?? '' ?>"
                                         class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('address'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
 
                                 </div>
@@ -103,51 +106,6 @@
 
                     </div>
 
-                    <!-- EMERGENCY CONTACT -->
-                    <!-- <hr class="border-gray-800 my-2"> -->
-                    <!-- <div class="border-b border-gray-900/10 pb-12">
-                        <h2 class="text-xl font-bold leading-7 text-gray-300">Emergency Contact</h2>
-
-                        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 ">
-
-                            <div class="sm:col-span-3">
-                                <label for="eName" class="block text-sm  font-medium leading-6 text-gray-300">
-                                    Name</label>
-                                <div class="mt-2">
-                                    <input type="text" name="eName" id="eName" placeholder="Name"
-                                        class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('eName'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
-
-                                </div>
-                            </div>
-
-                            <div class="sm:col-span-3 ">
-
-                                <label for="eContactNumber" class="block text-sm  font-medium leading-6 text-gray-300">
-                                    Contact Number</label>
-                                <div class="mt-2">
-                                    <input type="text" name="eContactNumber" id="eContactNumber"
-                                        placeholder="Contact Number"
-                                        class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('eContactNumber'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
-
-                                </div>
-
-                            </div>
-
-                            <div class="sm:col-span-3 ">
-
-                                <label for="eAddress" class="block text-sm  font-medium leading-6 text-gray-300">
-                                    Address</label>
-                                <div class="mt-2">
-                                    <input type="text" name="eAddress" id="eAddress" placeholder="Address"
-                                        class="block bg-gray-800 w-full  rounded-md border border-gray-600 <?= isEmpty('eAddress'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-500 sm:text-sm sm:leading-6">
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div> -->
 
 
                 </div>
@@ -162,36 +120,40 @@
             </form>
         </div>
 
+
+
+
+
         <?php if (isset($errors['body'])): ?>
-        <div x-data="{ isFeedbackOpen: true }">
-            <div x-show="isFeedbackOpen" x-cloak x-transition:enter="transition ease-out duration-300 transform"
-                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="transition ease-in duration-200 transform"
-                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-                class="fixed inset-0 z-10 overflow-y-auto">
+            <div x-data="{ isFeedbackOpen: true }">
+                <div x-show="isFeedbackOpen" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-200 transform"
+                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                    class="fixed inset-0 z-10 overflow-y-auto">
 
-                <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-                    <div class="fixed inset-0">
-                        <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-                    </div>
-                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                    <div
-                        class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-
-                        <label class="text-md text-yellow-400 mb-5" for="floorNumber">Please fill out all the necessary
-                            information!</label>
-
-                        <div>
-                            <button @click="isFeedbackOpen = false"
-                                class="px-10 py-2 mt-3 w-40 cursor-pointer text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">
-                                OK
-                            </button>
+                    <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                        <div class="fixed inset-0">
+                            <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
                         </div>
+                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                        <div
+                            class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
 
+                            <label class="text-md text-yellow-400 mb-5" for="floorNumber">Please fill out all the necessary
+                                information!</label>
+
+                            <div>
+                                <button @click="isFeedbackOpen = false"
+                                    class="px-10 py-2 mt-3 w-40 cursor-pointer text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">
+                                    OK
+                                </button>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         <?php endif; ?>
 
     </section>

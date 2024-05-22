@@ -7,7 +7,7 @@ class Validator
     {
         $value = trim($value);
 
-        return empty($value) && strlen($value) <= $max;
+        return empty($value) && strlen($value) == 0 && strlen($value) <= $max;
     }
 
 }
