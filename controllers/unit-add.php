@@ -29,12 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
 
-        $unitsRowCountExist = $db->query('SELECT * FROM units WHERE unit_number = :unit_number AND isActive = 1', [
-            'unit_number' => $_POST['unitNumber']
-        ])->getRowCount();
+        if (isset($_POST['unitNumber'])) {
+            $unitsRowCountExist = $db->query('SELECT * FROM units WHERE unit_number = :unit_number AND isActive = 1', [
+                'unit_number' => $_POST['unitNumber']
+            ])->getRowCount();
 
-        if ($unitsRowCountExist >= 1) {
-            $errors['alreadyExist'] = 'Required!';
+            if ($unitsRowCountExist >= 1) {
+                $errors['alreadyExist'] = 'Required!';
+            }
         }
 
 

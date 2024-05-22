@@ -6,7 +6,7 @@
 <main class="w-full flex flex-col overflow-hidden"
     x-data="{ isOpen: false, isDeleteConfirmation : false,  isFeedbackOpen: false}">
 
-    <?php require "partials/unit-banner.php" ?>
+    <?php require "partials/banner.php" ?>
 
     <section
         class="mx-auto p-12 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center"

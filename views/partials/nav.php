@@ -15,10 +15,11 @@ require 'head.php';
     </div>
 
 
-    <div class="sidebar fixed inset-0 z-50 min-w-56 transform transition-transform duration-300 h-screen ease-in-out md:relative md:z-auto md:translate-x-0 md:flex 2xl:min-w-72"
+    <div x-cloak
+        class="sidebar fixed inset-0 z-50 min-w-56 transform transition-transform duration-300 h-screen ease-in-out md:relative md:z-auto md:translate-x-0 md:flex 2xl:min-w-72"
         :class="{'translate-x-0': open, '-translate-x-full': !open}">
 
-        <aside
+        <aside x-cloak
             class="sm:flex sm:flex-col min-w-56 md:transition-transform md:duration-300 transform h-screen px-5 py-8 overflow-y-auto bg-gray-950 shadow-lg 2xl:min-w-72">
             <div class="flex justify-between items-center">
                 <a href="/">
@@ -57,6 +58,17 @@ require 'head.php';
                             </path>
                         </svg>
                         <span class=" mx-2 text-sm 2xl:text-lg font-medium">Floors</span>
+                    </a>
+
+                    <a class="flex items-center px-3 py-2 <?= isCurrent("/unitTypes"); ?>" href="/unitTypes">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-5 h-5 2xl:w-6 2xl:h-6">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path
+                                d="M21 19H23V21H1V19H3V4C3 3.44772 3.44772 3 4 3H14C14.5523 3 15 3.44772 15 4V19H19V11H17V9H20C20.5523 9 21 9.44772 21 10V19ZM5 5V19H13V5H5ZM7 11H11V13H7V11ZM7 7H11V9H7V7Z">
+                            </path>
+                        </svg>
+                        <span class=" mx-2 text-sm 2xl:text-lg font-medium">Unit Types</span>
                     </a>
 
                     <a class="flex items-center px-3 py-2 <?= isCurrent("/tenants"); ?>" href="/tenants">

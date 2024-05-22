@@ -12,5 +12,8 @@ return [
     '/tenant/add' => 'controllers/tenant-add.php',
     '/tenant' => 'controllers/tenant.php',
     '/bill' => 'controllers/bill.php',
+    '/unitTypes' => 'controllers/unit_types.php',
+    '/unitTypes/add' => 'controllers/unit_types_add.php',
+    '/unitType/edit' => 'controllers/unit_types_edit.php',
     '/tenants' => 'controllers/tenants.php'
 ];
