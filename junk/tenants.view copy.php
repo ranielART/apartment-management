@@ -3,17 +3,13 @@
 
 <?php require "partials/nav.php" ?>
 
-<main class="w-full flex flex-col overflow-hidden"
-    x-data="{ isOpen: false, isDeleteConfirmation : false,  isFeedbackOpen: false}">
+<main class="w-full flex flex-col">
 
     <?php require "partials/banner.php" ?>
 
     <section
         class="mx-auto p-12 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center"
         style="max-height: calc(100vh - 110px);">
-
-
-
 
         <!-- SEARCH -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -43,6 +39,8 @@
             });
         </script>
 
+
+
         <div class="flex items-center justify-center mb-5">
             <div class="relative flex items-center">
                 <span class="absolute">
@@ -57,24 +55,24 @@
             </div>
         </div>
 
-        <div class="bg-gray-950 shadow-lg shadow mx-auto rounded-md px-10 py-8 my-auto">
+        <div class="bg-gray-950 shadow-lg shadow mx-auto  rounded-md px-10 py-8 my-auto">
 
-            <div class="flex bg-gray-950 items-center gap-x-3 sm:justify-between">
+            <div class="flex items-center gap-x-3 sm:justify-between">
 
                 <div>
 
-                    <h1 class="text-gray-200 font-bold text-3xl md:flex">Tenants</h1>
+                    <h1 class="text-gray-200 font-bold md:text-3xl hidden md:flex">Tenants Table</h1>
 
                 </div>
+
 
             </div>
 
 
             <div class="flex flex-col mt-6 overflow-hidden">
 
-
                 <div class="-mx-4 -my-2 overflow-hidden overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="max-h-[24rem] overflow-y-auto">
+                    <div class="max-h-[24rem] overflow-y-auto min-w-sm">
                         <div class="inline-block min-w-full py-2 align-middle px-6 lg:px-8">
 
                             <div class="overflow-hidden shadow-lg rounded-lg">
@@ -242,7 +240,7 @@
                                                         d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                                 </svg>
                                             </div>
-                                            <h1 class="mt-3 text-lg text-gray-300">This table is empty.</h1>
+                                            <h1 class="mt-3 text-lg text-gray-300">This unit is empty.</h1>
                                             <p class="mt-2 text-gray-500">Your current table does not have any tenants.</p>
                                         </div>
                                     </div>
@@ -271,11 +269,7 @@
                 </div>
             </div>
         </div>
-
-
     </section>
-
-
 </main>
 
 

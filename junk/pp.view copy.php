@@ -3,14 +3,14 @@
 
 <?php require "partials/nav.php" ?>
 
-<main class="w-full flex flex-col overflow-hidden">
+<main class="w-full flex flex-col">
 
     <?php require "partials/banner.php" ?>
 
-    <section x-data="{ isPaidOpen: false, isBillOpen: false, isPaidConfirm: false, isPaySuccess: false }"
+    <section
         class="mx-auto p-12 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center"
-        style="max-height: calc(100vh - 110px);">
-
+        style="max-height: calc(100vh - 110px);"
+        x-data="{ isPaidOpen: false, isBillOpen: false, isPaidConfirm: false, isPaySuccess: false }">
 
         <!-- Payment Success Modal -->
         <?php if (isset($_GET['payment_success_msg'])): ?>
@@ -182,6 +182,9 @@
             </div>
         </form>
 
+
+
+
         <!-- View Bill modal -->
         <?php if (isset($_GET['view_bill_modal'])): ?>
             <div x-data="{ isBillOpen: <?= $_GET['view_bill_modal'] ?> }">
@@ -278,6 +281,8 @@
             });
         </script>
 
+
+
         <div class="flex items-center justify-center mb-5">
             <div class="relative flex items-center">
                 <span class="absolute">
@@ -292,18 +297,21 @@
             </div>
         </div>
 
+
+
         <div class="bg-gray-950 shadow-lg shadow mx-auto rounded-md px-10 py-8 my-auto">
 
             <div class="flex bg-gray-950 items-center gap-x-3 sm:justify-between">
 
                 <div>
 
-                    <h1 class="text-gray-200 font-bold text-3xl md:flex">Pending Payments</h1>
+                    <h1 class="text-gray-200 font-bold md:text-2xl hidden md:flex">Pending Payments</h1>
 
                 </div>
 
 
             </div>
+
 
             <div class="flex flex-col mt-6 overflow-hidden">
 
@@ -317,6 +325,7 @@
                                 <table class="min-w-full divide-y divide-gray-700 ">
                                     <thead class="bg-gray-800">
                                         <tr>
+
                                             <th scope="col"
                                                 class="min-w-40 py-3.5 px-4 text-md font-semibold text-left rtl:text-right text-gray-300">
                                                 Unit Number
@@ -340,7 +349,8 @@
 
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-gray-800 bg-gray-900">
+                                    <tbody class="divide-y divide-gray-800 bg-gray-900 overflow-y-scroll">
+
                                         <?php foreach ($bills as $bill): ?>
                                             <tr>
                                                 <td
@@ -395,12 +405,12 @@
 
                                             </tr>
                                         <?php endforeach; ?>
+
+
+
                                     </tbody>
 
                                 </table>
-
-
-
                                 <?php if ($numberOfPending <= 0): ?>
 
                                     <div class="flex items-center p-20 text-center bg-gray-900">
@@ -413,7 +423,7 @@
                                                         d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                                 </svg>
                                             </div>
-                                            <h1 class="mt-3 text-lg text-gray-300">This table is empty.</h1>
+                                            <h1 class="mt-3 text-lg text-gray-300">Pending Payments is empty.</h1>
                                             <p class="mt-2 text-gray-500">Your current table does not have any pending
                                                 payments.</p>
                                         </div>
@@ -435,19 +445,13 @@
                                     </div>
                                 </div>
 
-
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </section>
-
-
 </main>
 
 

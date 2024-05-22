@@ -3,20 +3,19 @@ require 'head.php';
 ?>
 
 <div x-data="{ open: false }" class="relative">
-    <div class="md:hidden h-full flex justify-center items-center inset-0 z-50">
+    <div class="md:hidden h-full flex justify-center items-center inset-0 z-50 absolute ml-4">
         <button @click="open = !open" class="md:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                class="w-7 h-7 text-gray-300">
+                class="h-9 w-auto text-white">
                 <path fill="none" d="M0 0h24v24H0z"></path>
                 <path
-                    d="M17.1717 11.0001L12.5148 6.34323L13.929 4.92902L21.0001 12.0001L13.929 19.0712L12.5148 17.6569L17.1716 13.0001L7.99983 13.0002L7.99981 11.0002L17.1717 11.0001ZM3.99988 19L3.99988 5.00003H5.99988V19H3.99988Z">
+                    d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z">
                 </path>
             </svg>
-        </button>
     </div>
 
 
-    <div class="sidebar fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out md:relative md:z-auto md:translate-x-0 md:flex"
+    <div class="sidebar fixed inset-0 z-50 min-w-56 transform transition-transform duration-300 h-screen ease-in-out md:relative md:z-auto md:translate-x-0 md:flex 2xl:min-w-72"
         :class="{'translate-x-0': open, '-translate-x-full': !open}">
 
         <aside
