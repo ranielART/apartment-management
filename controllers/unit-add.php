@@ -29,6 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
 
+        $unitsRowCountExist = $db->query('SELECT * FROM units WHERE unit_number = :unit_number AND isActive = 1', [
+            'unit_number' => $_POST['unitNumber']
+        ])->getRowCount();
+
+        if ($unitsRowCountExist >= 1) {
+            $errors['alreadyExist'] = 'Required!';
+        }
+
+
         if (empty($errors)) {
             $db->query('INSERT INTO units(unit_number, floor_id, type_id) VALUES(:unit_number, :floor_id, :type_id)', [
                 'unit_number' => $_POST['unitNumber'],
