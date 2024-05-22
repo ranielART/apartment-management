@@ -27,6 +27,7 @@
                                     Unit Number</label>
                                 <div class="mt-2">
                                     <input type="text" name="unitNumber" id="unitNumber" placeholder="Unit Number"
+                                        vaue="<?= $_POST['unitNumber'] ?? '' ?>"
                                         class="block bg-gray-800 w-full rounded-md border border-gray-600 <?= isEmpty('unitNumber'); ?> py-1.5 text-gray-300 shadow-sm placeholder:text-gray-400 sm:text-sm sm:leading-6">
                                     <?php if (isset($errors['body'])): ?>
                                         <p class="text-red-500 text-xs mt-2"><?= $errors['body'] ?></p>
