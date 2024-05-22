@@ -8,6 +8,14 @@ $db = new Database($config['database']);
 
 $heading = 'Bill';
 
+date_default_timezone_set('Asia/Manila');
+
+
+$currentDateTime = new DateTime();
+$currentDate = $currentDateTime->format('Y/m/d');
+
+
+
 $unitDetails = $db->query('SELECT units.*, unit_types.* FROM units LEFT JOIN unit_types ON units.type_id = unit_types.type_id WHERE units.unit_id = :unit_id AND isActive = 1', [
     'unit_id' => $_GET['unit_id']
 ])->find();
