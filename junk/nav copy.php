@@ -7,13 +7,14 @@ require 'head.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['logOutBtn'])) {
         header("Location: /dashboard?logout_msg=true");
+        exit();
     }
 
 }
 
 ?>
 
-<div x-data="{ open: false }" class="relative">
+<div x-data="{ open: false isLogOut: false}" class="relative">
     <div class="md:hidden h-full flex justify-center items-center inset-0 z-50 absolute ml-4">
         <button @click="open = !open" class="md:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -135,6 +136,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </button>
 
                     </form>
+
+
                 </div>
             </div>
         </aside>
