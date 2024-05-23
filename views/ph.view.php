@@ -63,7 +63,7 @@
 
                 <div>
 
-                    <h1 class="text-gray-200 font-bold text-3xl md:flex">Payment History</h1>
+                    <h1 class="text-gray-200 font-bold text-3xl hidden md:flex">Payment History</h1>
 
                 </div>
 

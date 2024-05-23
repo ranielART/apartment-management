@@ -23,7 +23,7 @@ require 'head.php';
             class="sm:flex sm:flex-col min-w-56 md:transition-transform md:duration-300 transform h-screen px-5 py-8 overflow-y-auto bg-gray-950 shadow-lg 2xl:min-w-72">
             <div class="flex justify-between items-center">
                 <a href="/">
-                    <img class="w-auto h-7 2xl:h-9" src="https://merakiui.com/images/logo.svg" alt="">
+                    <img class="w-auto h-9 2xl:h-11" src="art_logo.png" alt="">
                 </a>
                 <button @click="open = !open" class="md:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"

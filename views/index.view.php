@@ -119,11 +119,10 @@
 
     <div class="w-full max-w-sm py-6 px-8 m-auto mx-auto rounded-lg shadow-md bg-gray-950">
         <div class="flex flex-col mx-auto gap-y-3 items-center">
-            <img class="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt="">
 
+            <img class="w-auto h-11" src="art_logo.png" alt="">
 
-
-            <label class="block text-lg text-gray-200 ">Apartment Admin Suite</label>
+            <label class="block text-lg text-gray-400 ">Apartment Admin Suite</label>
         </div>
 
 

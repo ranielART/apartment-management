@@ -298,7 +298,7 @@
 
                 <div>
 
-                    <h1 class="text-gray-200 font-bold text-3xl md:flex">Pending Payments</h1>
+                    <h1 class="text-gray-200 font-bold text-3xl hidden md:flex">Pending Payments</h1>
 
                 </div>
 
