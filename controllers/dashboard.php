@@ -1,6 +1,14 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['username'])) {
+    header("location: /unauthorizedAccess");
+    exit();
+}
+
 $heading = 'Dashboard';
+
+
 
 $config = require ('config.php');
 $db = new Database($config['database']);

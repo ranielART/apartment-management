@@ -8,8 +8,6 @@
 
     <?php require "partials/unit_type_banner.php" ?>
 
-
-
     <!-- Add unit exist feedback -->
     <?php if (isset($errors['alreadyExist'])): ?>
 

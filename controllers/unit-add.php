@@ -1,6 +1,13 @@
 <?php
 require 'Validator.php';
 session_start();
+
+if (!isset($_SESSION['username'])) {
+    header("location: /unauthorizedAccess");
+    exit();
+}
+
+
 $heading = 'Add Unit';
 
 $config = require ('config.php');

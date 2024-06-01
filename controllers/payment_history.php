@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['username'])) {
+    header("location: /unauthorizedAccess");
+    exit();
+}
+
+
 $heading = 'Payment History';
 
 $numberOfPending = 0;

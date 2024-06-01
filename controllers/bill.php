@@ -2,6 +2,10 @@
 require 'Validator.php';
 session_start();
 
+if (!isset($_SESSION['username'])) {
+    header("location: /");
+    exit();
+}
 
 $config = require ('config.php');
 $db = new Database($config['database']);

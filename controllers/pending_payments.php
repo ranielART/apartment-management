@@ -3,6 +3,12 @@
 $heading = 'Pending Payments';
 session_start();
 
+if (!isset($_SESSION['username'])) {
+    header("location: /unauthorizedAccess");
+    exit();
+}
+
+
 $config = require ('config.php');
 $db = new Database($config['database']);
 

@@ -8,7 +8,7 @@
 
     <!-- Unit Ype added Success -->
     <?php if (isset($_GET['type_add_msg'])): ?>
-    <div x-show="isFeedbackOpen = <?= $_GET['unit_add_msg'] ?>" x-cloak
+    <div x-show="isFeedbackOpen = <?= $_GET['type_add_msg'] ?>" x-cloak
         x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95"
         x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200 transform"
         x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"

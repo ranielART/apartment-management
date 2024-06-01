@@ -4,19 +4,95 @@
 <?php require "partials/nav.php" ?>
 
 <main class="w-full flex flex-col overflow-hidden"
-    x-data="{ isOpen: false, isDeleteConfirmation : false,  isFeedbackOpen: false}">
+    x-data="{ isOpen: false, isDeleteConfirmation : false,  isFeedbackOpen: falsem}">
 
     <?php require "partials/banner.php" ?>
+
+    <!-- View Tenant modal -->
+    <?php if (isset($_GET['view_tenant_modal'])): ?>
+    <div x-data="{ isBillOpen: true }">
+        <div x-show="isBillOpen" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
+
+            <div class="flex items-center justify-center min-h-screen px-4 sm:p-0">
+
+                <div class="fixed inset-0 ">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                </div>
+
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 gap-y-5 pb-4 overflow-hidden flex md:max-w-screen-md md:gap-x-4 flex-col align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+                    <div class="w-full flex justify-center items-center">
+                        <label class="text-gray-400 text-xl">Tenant Details</label>
+                    </div>
+
+                    <hr class="border-gray-500 mt-2">
+
+                    <div class="flex justify-between p-6">
+                        <div class="flex flex-col gap-y-6">
+                            <label class="text-gray-400">Unit Number:
+                                <?= $tenantsIndividual['unit_number'] ?></label>
+
+                            <label class="text-gray-400">Name:
+                                <?= $tenantsIndividual['tenant_name'] ?></label>
+                            <label class="text-gray-400">Age:
+                                <?= $tenantsIndividual['tenant_age'] ?></label>
+                            <label class="text-gray-400">Contact Number:
+                                <?= $tenantsIndividual['contact_number'] ?>
+                            </label>
+                            <label class="text-gray-400">Address:
+                                <?= $tenantsIndividual['address'] ?></label>
+                            <label class="text-gray-400">Move in Date:
+                                <?= $tenantsIndividual['moveIn_date'] ?></label>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="w-full flex justify-center items-center">
+                        <label class="text-gray-400 text-xl">Emergency
+                            Contact</label>
+                    </div>
+                    <hr class="border-gray-500 mb-2">
+                    <div class="flex flex-col p-6 gap-y-6">
+                        <label class=" text-gray-400">Name:
+                            <?= $tenantsIndividual['name'] ?? 'N/A' ?></label>
+                        <label class="text-gray-400">Contact Number:
+                            <?= $tenantsIndividual['econtact_number'] ?? 'N/A' ?></label>
+                        <label class="text-gray-400">Address:
+                            <?= $tenantsIndividual['eaddress'] ?? 'N/A' ?> </label>
+                    </div>
+
+
+                    <hr class="border-gray-500 mt-2">
+
+
+                    <div class="w-full flex justify-center items-center">
+
+                        <a href="/tenants"
+                            class="px-10 py-2 mt-3 w-40 cursor-pointer text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">Close</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 
     <section
         class="mx-auto p-12 items-center overflow-hidden w-full max-h-screen overflow-y-scroll justify-items-center"
         style="max-height: calc(100vh - 110px);">
 
 
-
-
         <!-- SEARCH -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
         $(document).ready(function() {
             $('#searchInput').keyup(function() {
@@ -41,7 +117,12 @@
                 }
             });
         });
-        </script>
+        </script> -->
+
+        <!-- SEARCH EXPERIMENT -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
 
         <div class="flex items-center justify-center mb-5">
             <div class="relative flex items-center">
@@ -106,9 +187,10 @@
 
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-gray-800 bg-gray-900">
+                                    <tbody class="divide-y divide-gray-800 bg-gray-900 ">
                                         <?php foreach ($tenants as $tenant): ?>
-                                        <tr>
+                                        <tr
+                                            class="cursor-pointer hover:bg-gray-800 transition transition-colors duration-300">
                                             <td
                                                 class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-400">
                                                 <?= $tenant['unit_number'] ?>
@@ -142,93 +224,11 @@
 
                                             </td>
                                         </tr>
-                                        <!-- View Tenant modal -->
-                                        <?php if (isset($_GET['view_tenant_modal'])): ?>
-                                        <div x-data="{ isBillOpen: <?= $_GET['view_tenant_modal'] ?> }">
-                                            <div x-show="isBillOpen" x-cloak
-                                                x-transition:enter="transition ease-out duration-300 transform"
-                                                x-transition:enter-start="opacity-0 scale-95"
-                                                x-transition:enter-end="opacity-100 scale-100"
-                                                x-transition:leave="transition ease-in duration-200 transform"
-                                                x-transition:leave-start="opacity-100 scale-100"
-                                                x-transition:leave-end="opacity-0 scale-95"
-                                                class="fixed inset-0 z-10 overflow-y-auto">
 
-                                                <div class="flex items-center justify-center min-h-screen px-4 sm:p-0">
-
-                                                    <div class="fixed inset-0 ">
-                                                        <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-                                                    </div>
-
-                                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen"
-                                                        aria-hidden="true">&#8203;</span>
-                                                    <div
-                                                        class="inline-block px-4 pt-5 gap-y-5 pb-4 overflow-hidden flex md:max-w-screen-md md:gap-x-4 flex-col align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-                                                        <div class="w-full flex justify-center items-center">
-                                                            <label class="text-gray-400 text-xl">Tenant Details</label>
-                                                        </div>
-
-                                                        <hr class="border-gray-500 mt-2">
-
-                                                        <div class="flex justify-between p-6">
-                                                            <div class="flex flex-col gap-y-6">
-                                                                <label class="text-gray-400">Unit Number:
-                                                                    <?= $tenantsIndividual['unit_number'] ?></label>
-
-                                                                <label class="text-gray-400">Name:
-                                                                    <?= $tenantsIndividual['tenant_name'] ?></label>
-                                                                <label class="text-gray-400">Age:
-                                                                    <?= $tenantsIndividual['tenant_age'] ?></label>
-                                                                <label class="text-gray-400">Contact Number:
-                                                                    <?= $tenantsIndividual['contact_number'] ?>
-                                                                </label>
-                                                                <label class="text-gray-400">Address:
-                                                                    <?= $tenantsIndividual['address'] ?></label>
-                                                                <label class="text-gray-400">Move in Date:
-                                                                    <?= $tenantsIndividual['moveIn_date'] ?></label>
-
-                                                            </div>
-
-
-                                                        </div>
-
-
-                                                        <div class="w-full flex justify-center items-center">
-                                                            <label class="text-gray-400 text-xl">Emergency
-                                                                Contact</label>
-                                                        </div>
-                                                        <hr class="border-gray-500 mb-2">
-                                                        <div class="flex flex-col p-6 gap-y-6">
-                                                            <label class=" text-gray-400">Name:
-                                                                <?= $tenantsIndividual['name'] ?? 'N/A' ?></label>
-                                                            <label class="text-gray-400">Contact Number:
-                                                                <?= $tenantsIndividual['econtact_number'] ?? 'N/A' ?></label>
-                                                            <label class="text-gray-400">Address:
-                                                                <?= $tenantsIndividual['eaddress'] ?? 'N/A' ?> </label>
-                                                        </div>
-
-
-                                                        <hr class="border-gray-500 mt-2">
-
-
-                                                        <div class="w-full flex justify-center items-center">
-
-                                                            <a href="/tenants"
-                                                                class="px-10 py-2 mt-3 w-40 cursor-pointer text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform">Close</a>
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php endif; ?>
                                         <?php endforeach; ?>
                                     </tbody>
 
                                 </table>
-
-
 
                                 <?php if ($numOfTenants <= 0): ?>
 
@@ -263,11 +263,40 @@
                                     </div>
                                 </div>
 
-
-
                             </div>
                         </div>
                     </div>
+                </div>
+
+            </div>
+            <div
+                class="mt-6 flex flex-row-reverse justify-end items-center min-[1100px]:justify-between  min-[1200px]:flex-row">
+
+                <span class="text-gray-500 hidden min-[1200px]:flex ">Showing 1 to 10 out of 60 entries</span>
+
+
+                <div class=" flex justify-between w-full min-[1100px]:max-w-[500px]">
+
+                    <button
+                        class="border text-gray-300 rounded-md py-2 px-3 hover:bg-gray-900 transition transition-colors duration-300 border-gray-600 max-w-max">Previous</button>
+
+                    <div class="hidden min-[600px]:flex min-[760px]:hidden min-[840px]:flex gap-x-1">
+                        <button
+                            class="border text-gray-300 rounded-md py-2 px-3 hover:bg-gray-900 transition transition-colors duration-300 border-gray-600 max-w-max">1</button>
+                        <button
+                            class="border text-gray-300 rounded-md py-2 px-3 hover:bg-gray-900 transition transition-colors duration-300 border-gray-600 max-w-max">2</button>
+                        <button
+                            class="border text-gray-300 rounded-md py-2 px-3 hover:bg-gray-900 transition transition-colors duration-300 border-gray-600 max-w-max">...</button>
+                        <button
+                            class="border text-gray-300 rounded-md py-2 px-3 hover:bg-gray-900 transition transition-colors duration-300 border-gray-600 max-w-max">5</button>
+                        <button
+                            class="border text-gray-300 rounded-md py-2 px-3 hover:bg-gray-900 transition transition-colors duration-300 border-gray-600 max-w-max">6</button>
+                    </div>
+
+                    <button
+                        class="border text-gray-300 rounded-md py-2 px-3 hover:bg-gray-900 transition transition-colors duration-300 border-gray-600 min-w-[90px]">Next</button>
+
+
                 </div>
             </div>
         </div>

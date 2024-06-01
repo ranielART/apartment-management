@@ -1,9 +1,15 @@
 <?php
 
 require 'Validator.php';
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    header("location: /unauthorizedAccess");
+    exit();
+}
 
 $heading = 'Edit Type';
-session_start();
+
 
 
 $config = require ('config.php');

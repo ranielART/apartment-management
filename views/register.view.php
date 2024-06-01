@@ -7,77 +7,77 @@
     <!-- Empty Input -->
     <?php if (isset($errors['input'])): ?>
 
-        <?php if (Validator::string($_POST['name']) || Validator::string($_POST['username']) || Validator::string($_POST['password']) || Validator::string($_POST['passwordConfirm'])): ?>
-            <div x-data="{isNotEmpty: true }">
-                <div x-show="isNotEmpty" x-cloak x-transition:enter="transition ease-out duration-300 transform"
-                    x-transition:enter-start=" opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                    x-transition:leave="transition ease-in duration-200 transform"
-                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-                    class="fixed inset-0 z-10 overflow-y-auto">
+    <?php if (Validator::string($_POST['name']) || Validator::string($_POST['username']) || Validator::string($_POST['password']) || Validator::string($_POST['passwordConfirm'])): ?>
+    <div x-data="{isNotEmpty: true }">
+        <div x-show="isNotEmpty" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start=" opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
 
-                    <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-                        <div class="fixed inset-0">
-                            <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-                        </div>
-                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                        <div
-                            class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-
-                            <label class="text-md text-red-500 mb-5" for="floorNumber">Please fill out all the inputs.</label>
-
-                            <div>
-                                <button
-                                    class="px-10 py-2 cursor-pointer mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform"
-                                    @click="isNotEmpty = false">
-                                    Close
-                                </button>
-
-                            </div>
-
-                        </div>
-                    </div>
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
                 </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
 
+                    <label class="text-md text-red-500 mb-5" for="floorNumber">Please fill out all the inputs.</label>
+
+                    <div>
+                        <button
+                            class="px-10 py-2 cursor-pointer mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform"
+                            @click="isNotEmpty = false">
+                            Close
+                        </button>
+
+                    </div>
+
+                </div>
             </div>
+        </div>
 
-        <?php endif; ?>
+    </div>
+
+    <?php endif; ?>
     <?php endif; ?>
 
     <!-- Passowrd and Confirm Password Not match  -->
     <?php if (isset($errors['notSamePass'])): ?>
 
-        <div x-data="{isPassConfrimSame: true }">
-            <div x-show="isPassConfrimSame" x-cloak x-transition:enter="transition ease-out duration-300 transform"
-                x-transition:enter-start=" opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="transition ease-in duration-200 transform"
-                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-                class="fixed inset-0 z-10 overflow-y-auto">
+    <div x-data="{isPassConfrimSame: true }">
+        <div x-show="isPassConfrimSame" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start=" opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
 
-                <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-                    <div class="fixed inset-0">
-                        <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-                    </div>
-                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                    <div
-                        class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
 
-                        <label class="text-md text-red-500 mb-5" for="floorNumber">Password and Confirm Password does not
-                            match.</label>
+                    <label class="text-md text-red-500 mb-5" for="floorNumber">Password and Confirm Password does not
+                        match.</label>
 
-                        <div>
-                            <button
-                                class="px-10 py-2 cursor-pointer mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform"
-                                @click="isPassConfrimSame = false">
-                                Close
-                            </button>
-
-                        </div>
+                    <div>
+                        <button
+                            class="px-10 py-2 cursor-pointer mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform"
+                            @click="isPassConfrimSame = false">
+                            Close
+                        </button>
 
                     </div>
+
                 </div>
             </div>
-
         </div>
+
+    </div>
 
     <?php endif; ?>
 
@@ -86,37 +86,37 @@
     <!-- User Name exist Input -->
     <?php if (isset($errors['userName'])): ?>
 
-        <div x-data="{isUsernameUnique: true }">
-            <div x-show="isUsernameUnique" x-cloak x-transition:enter="transition ease-out duration-300 transform"
-                x-transition:enter-start=" opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="transition ease-in duration-200 transform"
-                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-                class="fixed inset-0 z-10 overflow-y-auto">
+    <div x-data="{isUsernameUnique: true }">
+        <div x-show="isUsernameUnique" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start=" opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
 
-                <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-                    <div class="fixed inset-0">
-                        <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-                    </div>
-                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                    <div
-                        class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
 
-                        <label class="text-md text-red-500 mb-5" for="floorNumber">Username Already Exist.</label>
+                    <label class="text-md text-red-500 mb-5" for="floorNumber">Username Already Exist.</label>
 
-                        <div>
-                            <button
-                                class="px-10 py-2 cursor-pointer mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform"
-                                @click="isUsernameUnique = false">
-                                Close
-                            </button>
-
-                        </div>
+                    <div>
+                        <button
+                            class="px-10 py-2 cursor-pointer mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform"
+                            @click="isUsernameUnique = false">
+                            Close
+                        </button>
 
                     </div>
+
                 </div>
             </div>
-
         </div>
+
+    </div>
 
     <?php endif; ?>
 
@@ -124,37 +124,37 @@
 
     <!-- Add login unsuccessful feedback -->
     <?php if (isset($errors['userNamePassword'])): ?>
-        <div x-data="{isFeedLoggedIn: true }">
-            <div x-show="isFeedLoggedIn" x-cloak x-transition:enter="transition ease-out duration-300 transform"
-                x-transition:enter-start=" opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="transition ease-in duration-200 transform"
-                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-                class="fixed inset-0 z-10 overflow-y-auto">
+    <div x-data="{isFeedLoggedIn: true }">
+        <div x-show="isFeedLoggedIn" x-cloak x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start=" opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200 transform"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto">
 
-                <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
-                    <div class="fixed inset-0">
-                        <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
-                    </div>
-                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                    <div
-                        class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+            <div class="flex items-center justify-center min-h-screen px-4 text-center sm:p-0">
+                <div class="fixed inset-0">
+                    <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block px-4 pt-5 pb-4 overflow-hidden flex flex-col text-center align-bottom transition-all transform rounded-lg shadow-xl bg-gray-950 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
 
-                        <label class="text-md text-red-500 mb-5" for="floorNumber">Wrong Username or Password</label>
+                    <label class="text-md text-red-500 mb-5" for="floorNumber">Wrong Username or Password</label>
 
-                        <div>
-                            <button
-                                class="px-10 py-2 cursor-pointer mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform"
-                                @click="isFeedLoggedIn = false">
-                                Close
-                            </button>
-
-                        </div>
+                    <div>
+                        <button
+                            class="px-10 py-2 cursor-pointer mt-3 w-40 text-white text-sm font-medium border-gray-500 text-center border rounded-md hover:bg-gray-900 transition-colors duration-300 transform"
+                            @click="isFeedLoggedIn = false">
+                            Close
+                        </button>
 
                     </div>
+
                 </div>
             </div>
-
         </div>
+
+    </div>
 
     <?php endif; ?>
 
